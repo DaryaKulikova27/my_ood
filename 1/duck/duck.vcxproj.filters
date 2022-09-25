@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{96c43d7c-8fcc-489c-afbd-5b8e9aef25f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FlyBehavior">
+      <UniqueIdentifier>{bc142958-299d-432b-a1fd-b312364495ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck">
+      <UniqueIdentifier>{62562f25-e7b9-4b7e-908b-b1b8c35dfd90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\QuackBehavior">
+      <UniqueIdentifier>{3cae82ba-4cad-4ffb-81d7-e6ba1d16f470}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\DecoyDuck">
+      <UniqueIdentifier>{483d11ad-81c5-4122-842a-771a6262a65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\MallardDuck">
+      <UniqueIdentifier>{fd5e3f34-6cfc-416a-9fbc-02266ae6351c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\RedheadDuck">
+      <UniqueIdentifier>{c45021bd-2ee5-48a1-877b-12b3e933ebee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\Duck">
+      <UniqueIdentifier>{d98c569d-ffb8-48ff-b272-5b45e37242e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\RubberDuck">
+      <UniqueIdentifier>{cd2a6590-88b5-428a-830f-b4129ae83295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\Duck\ModelDuck">
+      <UniqueIdentifier>{a1f884bc-c56d-4bcf-83c5-f08f3432f664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FlyBehavior\FlyWithWings">
+      <UniqueIdentifier>{19a9d9a0-bc02-4ddd-a3e4-63d1d0f5fb54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\QuackBehavior\MuteQuack">
+      <UniqueIdentifier>{207a2f28-2103-4d67-8b63-d7c42fc9734e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\QuackBehavior\Quack">
+      <UniqueIdentifier>{22bb3234-fcf2-46e8-b4a8-87a4e60dbcc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FlyBehavior\FlyNoWay">
+      <UniqueIdentifier>{4de5cd60-76e9-4313-855f-3629f0d990b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\DanceBehavior">
+      <UniqueIdentifier>{0db98f93-81e8-460d-9862-203ca4f490c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\DanceBehavior\Menuet">
+      <UniqueIdentifier>{2cbfc82e-9850-4c8c-ab9f-59e525cc493c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\DanceBehavior\Waltz">
+      <UniqueIdentifier>{ae65ef09-e4ef-4611-8cd7-936c0c06e441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\QuackBehavior\Squeak">
+      <UniqueIdentifier>{73276994-77f5-411b-89cf-eaee87f10925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\DanceBehavior\NoDance">
+      <UniqueIdentifier>{cc5dcdc4-53b2-402f-874b-1aa4ca78d6ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="duck.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CDecoyDuck.cpp">
+      <Filter>lib\Duck\DecoyDuck</Filter>
+    </ClCompile>
+    <ClCompile Include="CMallardDuck.cpp">
+      <Filter>lib\Duck\MallardDuck</Filter>
+    </ClCompile>
+    <ClCompile Include="CDuck.cpp">
+      <Filter>lib\Duck\Duck</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelDuck.cpp">
+      <Filter>lib\Duck\ModelDuck</Filter>
+    </ClCompile>
+    <ClCompile Include="CRubberDuck.cpp">
+      <Filter>lib\Duck\RubberDuck</Filter>
+    </ClCompile>
+    <ClCompile Include="CRedheadDuck.cpp">
+      <Filter>lib\Duck\RedheadDuck</Filter>
+    </ClCompile>
+    <ClCompile Include="IFlyBehavior.h">
+      <Filter>lib\FlyBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlyWithWings.cpp">
+      <Filter>lib\FlyBehavior\FlyWithWings</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlyNoWay.cpp">
+      <Filter>lib\FlyBehavior\FlyNoWay</Filter>
+    </ClCompile>
+    <ClCompile Include="IDanceBehavior.h">
+      <Filter>lib\DanceBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenuet.cpp">
+      <Filter>lib\DanceBehavior\Menuet</Filter>
+    </ClCompile>
+    <ClCompile Include="CWaltz.cpp">
+      <Filter>lib\DanceBehavior\Waltz</Filter>
+    </ClCompile>
+    <ClCompile Include="IQuackBehavior.h">
+      <Filter>lib\QuackBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="CMuteBehavior.cpp">
+      <Filter>lib\QuackBehavior\MuteQuack</Filter>
+    </ClCompile>
+    <ClCompile Include="CQuackBehavior.cpp">
+      <Filter>lib\QuackBehavior\Quack</Filter>
+    </ClCompile>
+    <ClCompile Include="CSqueakBehavior.cpp">
+      <Filter>lib\QuackBehavior\Squeak</Filter>
+    </ClCompile>
+    <ClCompile Include="CNoDance.cpp">
+      <Filter>lib\DanceBehavior\NoDance</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CDecoyDuck.h">
+      <Filter>lib\Duck\DecoyDuck</Filter>
+    </ClInclude>
+    <ClInclude Include="CMallardDuck.h">
+      <Filter>lib\Duck\MallardDuck</Filter>
+    </ClInclude>
+    <ClInclude Include="CDuck.h">
+      <Filter>lib\Duck\Duck</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelDuck.h">
+      <Filter>lib\Duck\ModelDuck</Filter>
+    </ClInclude>
+    <ClInclude Include="CRubberDuck.h">
+      <Filter>lib\Duck\RubberDuck</Filter>
+    </ClInclude>
+    <ClInclude Include="CRedheadDuck.h">
+      <Filter>lib\Duck\RedheadDuck</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlyWithWings.h">
+      <Filter>lib\FlyBehavior\FlyWithWings</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlyNoWay.h">
+      <Filter>lib\FlyBehavior\FlyNoWay</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenuet.h">
+      <Filter>lib\DanceBehavior\Menuet</Filter>
+    </ClInclude>
+    <ClInclude Include="CWaltz.h">
+      <Filter>lib\DanceBehavior\Waltz</Filter>
+    </ClInclude>
+    <ClInclude Include="CMuteBehavior.h">
+      <Filter>lib\QuackBehavior\MuteQuack</Filter>
+    </ClInclude>
+    <ClInclude Include="CQuackBehavior.h">
+      <Filter>lib\QuackBehavior\Quack</Filter>
+    </ClInclude>
+    <ClInclude Include="CSqueakBehavior.h">
+      <Filter>lib\QuackBehavior\Squeak</Filter>
+    </ClInclude>
+    <ClInclude Include="DuckFunctions.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CNoDance.h">
+      <Filter>lib\DanceBehavior\NoDance</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
