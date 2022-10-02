@@ -10,6 +10,8 @@
 #ifndef DUCK_H
 #define DUCK_H
 
+// const методы swim и fly 
+
 class CDuck
 {
 public: 

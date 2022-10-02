@@ -16,15 +16,13 @@ public:
 		m_observers.push_back({ &observer, priority });
 	}
 
-	bool Comp(std::pair<ObserverType*, int> a, std::pair<ObserverType*, int> b)
-	{
-		return *a.second < *b.second;
-	}
-
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
-		sort(m_observers.begin(), m_observers.end(), Comp);
+		std::sort(m_observers.begin(), m_observers.end(), [](const std::pair<ObserverType*, int>& a, const std::pair<ObserverType*, int>& b)
+			{
+				return a.second < b.second;
+			});
 		for (auto& observer : m_observers)
 		{
 			observer.first->Update(data);
@@ -50,6 +48,9 @@ protected:
 
 private:
 	std::vector<std::pair<ObserverType*, int>> m_observers;
-	
+	bool Comp(const std::pair<ObserverType*, int> &a, const std::pair<ObserverType*, int> &b)
+	{
+		return a.second < b.second;
+	}
 };
 

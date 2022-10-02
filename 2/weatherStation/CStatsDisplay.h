@@ -6,6 +6,8 @@
 #include "SweatherInfo.h"
 #include "CObservable.h"
 
+// избавиться от дублирования кода
+
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 private:
