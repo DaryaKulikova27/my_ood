@@ -8,7 +8,7 @@ using namespace std;
 CController::CController(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
-	, m_shapesList()
+	, m_shapeListSf()
 	, m_actionMap({
 			{ "RECTANGLE", [this](std::istream& strm) {
 			   return AddRectangle(strm);
@@ -60,9 +60,9 @@ bool CController::Info() const
 
 bool CController::PrintInfoShapes() const
 {
-	for (int i = 0; i < m_shapesList.size(); i++)
+	for (int i = 0; i < m_shapeListSf.size(); i++)
 	{
-		m_output << m_shapesList[i]->ToString();
+		m_output << m_shapeListSf[i]->ToString();
 		m_output << std::endl;
 	}
 	m_output << std::endl;
@@ -77,7 +77,9 @@ bool CController::AddRectangle(std::istream& args)
 	args >> x1 >> y1 >> x2 >> y2 >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	m_shapesList.emplace_back(make_shared<CRectangle>(x1, y1, x2, y2, outlineColor, fillColor));
+	auto shape = make_unique<sf::RectangleShape>();
+	auto rectangle = make_unique<CRectangleDecorator>(std::move(shape), x1, y1, x2, y2, outlineColor, fillColor);
+	m_shapeListSf.emplace_back(rectangle);
 	return true;
 }
 
@@ -90,7 +92,9 @@ bool CController::AddTRiangle(std::istream& args)
 	args >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	m_shapesList.emplace_back(make_shared<CTriangle>(x1, y1, x2, y2, x3, y3, outlineColor, fillColor));
+	auto shape = make_unique<sf::ConvexShape>();
+	auto triangle = make_unique<CTriangleDecorator>(std::move(shape), x1, y1, x2, y2, x3, y3, outlineColor, fillColor);
+	m_shapeListSf.emplace_back(triangle);
 	return true;
 }
 
@@ -103,7 +107,9 @@ bool CController::AddCircle(std::istream& args)
 	args >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	m_shapesList.emplace_back(make_shared<CCircle>(x, y, radius, outlineColor, fillColor));
+	auto shape = make_unique<sf::CircleShape>();
+	auto circle = make_unique<CCircleDecorator>(std::move(shape), x, y, radius, outlineColor, fillColor);
+	m_shapeListSf.emplace_back(circle);
 	return true;
 }
 
@@ -121,10 +127,12 @@ bool CController::Draw()
 		}
 
 		window.clear(sf::Color::White);
-		for (int i = 0; i < m_shapesList.size(); i++)
+		for (int i = 0; i < m_shapeListSf.size(); i++)
 		{
-			m_shapesList[i]->Draw(canvas);
+			auto& shape = m_shapeListSf[i];
+			shape->Draw(window);
 		}
+		
 		window.display();
 	}
 	return true;

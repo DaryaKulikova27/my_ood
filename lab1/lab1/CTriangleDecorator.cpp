@@ -1,18 +1,18 @@
-#include "CTriangle.h"
+#include "CTriangleDecorator.h"
 
-int CTriangle::FindVectorLength(int x1, int y1, int x2, int y2)
+int CTriangleDecorator::FindVectorLength(int x1, int y1, int x2, int y2) const
 {
 	double vectorLength = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 	return vectorLength;
 }
 
-int CTriangle::GetArea()
+int CTriangleDecorator::GetShapeArea() const
 {
 	double area = abs((m_vertex2.x - m_vertex1.x) * (m_vertex3.y - m_vertex1.y) - (m_vertex3.x - m_vertex1.x) * (m_vertex2.y - m_vertex1.y)) / 2;
 	return area;
 }
 
-int CTriangle::GetPerimeter()
+int CTriangleDecorator::GetShapePerimeter() const
 {
 	double segment1 = FindVectorLength(m_vertex1.x, m_vertex1.y, m_vertex2.x, m_vertex2.y);
 	double segment2 = FindVectorLength(m_vertex2.x, m_vertex2.y, m_vertex3.x, m_vertex3.y);
@@ -21,44 +21,38 @@ int CTriangle::GetPerimeter()
 	return perimeter;
 };
 
-std::string CTriangle::ToString()
+std::string CTriangleDecorator::GetShapeName() const
 {
-	std::string str = "TRIANGLE: P = ";
-	str += std::to_string(GetPerimeter());
-	str += "; S = ";
-	str += std::to_string(GetArea());
-	return str;
+	return "TRIANGLE";
 }
 
-uint32_t CTriangle::GetFillColor()
+uint32_t CTriangleDecorator::GetShapeFillColor() const
 {
 	return m_fillColor;
 };
 
-uint32_t CTriangle::GetOutlineColor()
+uint32_t CTriangleDecorator::GetShapeOutlineColor() const
 {
 	return m_outlineColor;
 };
 
-CPoint CTriangle::GetVertex1() const
+CPoint CTriangleDecorator::GetVertex1() const
 {
 	return m_vertex1;
 };
 
-CPoint CTriangle::GetVertex2() const
+CPoint CTriangleDecorator::GetVertex2() const
 {
 	return m_vertex2;
 };
 
-CPoint CTriangle::GetVertex3() const
+CPoint CTriangleDecorator::GetVertex3() const
 {
 	return m_vertex3;
 };
 
-
-bool CTriangle::Draw(ICanvas& canvas)
+bool CTriangleDecorator::Draw(sf::RenderWindow& window)
 {
-	std::vector<CPoint> vertexes = { m_vertex1, m_vertex2, m_vertex3 };
-	bool isDraw = canvas.FillPolygon(vertexes, m_fillColor);
+	window.draw(*m_triangle);
 	return true;
 }

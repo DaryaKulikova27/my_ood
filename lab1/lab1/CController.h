@@ -1,8 +1,12 @@
 #pragma once
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "CCircle.h"
 #include "CRectangle.h"
 #include "CTriangle.h"
+#include "CCircleDecorator.h"
+#include "CRectangleDecorator.h"
+#include "CTriangleDecorator.h"
 #include "CCanvas.h"
 #include <vector>
 #include <memory>
@@ -28,7 +32,7 @@ private:
 	using Handler = std::function<bool(std::istream& args)>;
 	using ActionMap = std::map<std::string, Handler>;
 
-	std::vector<std::shared_ptr<IShape>> m_shapesList;
+	std::vector<std::shared_ptr<CShapeDecorator>> m_shapeListSf;
 	std::ostream& m_output;
 	std::istream& m_input;
 
