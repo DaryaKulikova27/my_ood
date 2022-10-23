@@ -6,13 +6,13 @@ int CTriangleDecorator::FindVectorLength(int x1, int y1, int x2, int y2) const
 	return vectorLength;
 }
 
-int CTriangleDecorator::GetShapeArea() const
+int CTriangleDecorator::GetArea() const
 {
 	double area = abs((m_vertex2.x - m_vertex1.x) * (m_vertex3.y - m_vertex1.y) - (m_vertex3.x - m_vertex1.x) * (m_vertex2.y - m_vertex1.y)) / 2;
 	return area;
 }
 
-int CTriangleDecorator::GetShapePerimeter() const
+int CTriangleDecorator::GetPerimeter() const
 {
 	double segment1 = FindVectorLength(m_vertex1.x, m_vertex1.y, m_vertex2.x, m_vertex2.y);
 	double segment2 = FindVectorLength(m_vertex2.x, m_vertex2.y, m_vertex3.x, m_vertex3.y);
@@ -21,38 +21,12 @@ int CTriangleDecorator::GetShapePerimeter() const
 	return perimeter;
 };
 
-std::string CTriangleDecorator::GetShapeName() const
+std::string CTriangleDecorator::ToString() const
 {
-	return "TRIANGLE";
+	std::string str = "TRIANGLE: P = ";
+	str += std::to_string(GetPerimeter());
+	str += "; S = ";
+	str += std::to_string(GetArea());
+	return str;
 }
 
-uint32_t CTriangleDecorator::GetShapeFillColor() const
-{
-	return m_fillColor;
-};
-
-uint32_t CTriangleDecorator::GetShapeOutlineColor() const
-{
-	return m_outlineColor;
-};
-
-CPoint CTriangleDecorator::GetVertex1() const
-{
-	return m_vertex1;
-};
-
-CPoint CTriangleDecorator::GetVertex2() const
-{
-	return m_vertex2;
-};
-
-CPoint CTriangleDecorator::GetVertex3() const
-{
-	return m_vertex3;
-};
-
-bool CTriangleDecorator::Draw(sf::RenderWindow& window)
-{
-	window.draw(*m_triangle);
-	return true;
-}

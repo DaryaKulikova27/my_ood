@@ -1,31 +1,30 @@
 #include "CController.h"
 #include <algorithm>
 #include <sstream>
-
-using namespace std::placeholders;
-using namespace std;
+#include <string>
+#include <cmath>
 
 CController::CController(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
-	, m_shapeListSf()
+	, m_shapeList()
 	, m_actionMap({
 			{ "RECTANGLE", [this](std::istream& strm) {
 			   return AddRectangle(strm);
 			} },
-			{ "TRIANGLE", [this](istream& strm) {
+			{ "TRIANGLE", [this](std::istream& strm) {
 			   return AddTRiangle(strm);
 			} },
-			{ "CIRCLE", [this](istream& strm) {
+			{ "CIRCLE", [this](std::istream& strm) {
 			   return AddCircle(strm);
 			} },
-			{ "Info", [this](istream& strm) {
+			{ "Info", [this](std::istream& strm) {
 				return Info();
 			} },
-			{ "PrintInfoShapes", [this](istream& strm) {
+			{ "PrintInfoShapes", [this](std::istream& strm) {
 				return PrintInfoShapes();
 			} },
-			{ "Draw", [this](istream& strm) {
+			{ "Draw", [this](std::istream& strm) {
 				return Draw();
 			} }
 }) {};
@@ -34,7 +33,7 @@ bool CController::HandleCommand() const
 {
 	std::string commandLine;
 	getline(m_input, commandLine);
-	istringstream strm(commandLine);
+	std::istringstream strm(commandLine);
 
 	std::string action;
 	strm >> action;
@@ -60,9 +59,9 @@ bool CController::Info() const
 
 bool CController::PrintInfoShapes() const
 {
-	for (int i = 0; i < m_shapeListSf.size(); i++)
+	for (int i = 0; i < m_shapeList.size(); i++)
 	{
-		m_output << m_shapeListSf[i]->ToString();
+		m_output << m_shapeList[i]->ToString();
 		m_output << std::endl;
 	}
 	m_output << std::endl;
@@ -71,52 +70,81 @@ bool CController::PrintInfoShapes() const
 
 bool CController::AddRectangle(std::istream& args)
 {
-	int x1, y1, x2, y2;
+	std::string x1, y1, x2, y2;
 	std::string outlineColorStr;
 	std::string fillColorStr;
 	args >> x1 >> y1 >> x2 >> y2 >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	auto shape = make_unique<sf::RectangleShape>();
-	auto rectangle = make_unique<CRectangleDecorator>(std::move(shape), x1, y1, x2, y2, outlineColor, fillColor);
-	m_shapeListSf.emplace_back(rectangle);
+	sf::Vector2f leftTop = { std::stof(x1), std::stof(y1) };
+	sf::Vector2f rightBottom = { std::stof(x2), std::stof(y2) };
+
+	auto rectangle = std::make_unique<sf::RectangleShape>();
+	rectangle->setSize({ abs(std::stof(x2) - std::stof(x1)) , abs(std::stof(y1) - std::stof(y2))});
+	rectangle->setPosition(leftTop);
+	rectangle->setOutlineThickness(5);
+	rectangle->setOutlineColor(GetColor(outlineColor));
+	rectangle->setFillColor(GetColor(fillColor));
+
+	auto shape = std::make_unique<CRectangleDecorator>(std::move(rectangle), leftTop, rightBottom, GetColor(fillColor), GetColor(outlineColor));
+	m_shapeList.push_back(std::move(shape));
 	return true;
 }
 
 bool CController::AddTRiangle(std::istream& args)
 {
-	int x1, y1, x2, y2, x3, y3;
+	std::string x1, y1, x2, y2, x3, y3;
 	std::string outlineColorStr;
 	std::string fillColorStr;
 	args >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 	args >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	auto shape = make_unique<sf::ConvexShape>();
-	auto triangle = make_unique<CTriangleDecorator>(std::move(shape), x1, y1, x2, y2, x3, y3, outlineColor, fillColor);
-	m_shapeListSf.emplace_back(triangle);
+	sf::Vector2f vertex1 = { std::stof(x1), std::stof(y1) };
+	sf::Vector2f vertex2 = { std::stof(x2), std::stof(y2) };
+	sf::Vector2f vertex3 = { std::stof(x3), std::stof(y3) };
+
+	auto triangle = std::make_unique<sf::ConvexShape>();
+	triangle->setPointCount(3);
+	triangle->setPoint(0, vertex1);
+	triangle->setPoint(1, vertex2);
+	triangle->setPoint(2, vertex3);
+	triangle->setOutlineThickness(5);
+	triangle->setOutlineColor(GetColor(outlineColor));
+	triangle->setFillColor(GetColor(fillColor));
+
+	auto shape = std::make_unique<CTriangleDecorator>(std::move(triangle), vertex1, vertex2, vertex3, GetColor(fillColor), GetColor(outlineColor));
+	m_shapeList.push_back(std::move(shape));
 	return true;
 }
 
 bool CController::AddCircle(std::istream& args)
 {
-	double x, y, radius;
+	std::string x, y;
+	int radius;
 	std::string outlineColorStr;
 	std::string fillColorStr;
 	args >> x >> y >> radius;
 	args >> outlineColorStr >> fillColorStr;
 	uint32_t outlineColor = stoul(outlineColorStr, nullptr, 16);
 	uint32_t fillColor = stoul(fillColorStr, nullptr, 16);
-	auto shape = make_unique<sf::CircleShape>();
-	auto circle = make_unique<CCircleDecorator>(std::move(shape), x, y, radius, outlineColor, fillColor);
-	m_shapeListSf.emplace_back(circle);
+	sf::Vector2f center = { std::stof(x), std::stof(y) };
+
+	auto circle = std::make_unique<sf::CircleShape>();
+	circle->setPosition(center);
+	circle->setRadius(radius);
+	circle->setOutlineThickness(5);
+	circle->setOutlineColor(GetColor(outlineColor));
+	circle->setFillColor(GetColor(fillColor));
+
+	auto shape = std::make_unique<CCircleDecorator>(std::move(circle), center, radius, GetColor(fillColor), GetColor(outlineColor));
+	m_shapeList.push_back(std::move(shape));
 	return true;
 }
 
 bool CController::Draw()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Result");
-	CCanvas canvas(window);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -127,13 +155,23 @@ bool CController::Draw()
 		}
 
 		window.clear(sf::Color::White);
-		for (int i = 0; i < m_shapeListSf.size(); i++)
+		for (int i = 0; i < m_shapeList.size(); i++)
 		{
-			auto& shape = m_shapeListSf[i];
+			auto& shape = m_shapeList[i];
 			shape->Draw(window);
 		}
 		
 		window.display();
 	}
 	return true;
+}
+
+
+sf::Color GetColor(uint32_t color)
+{
+	uint8_t blue = color % 256;
+	uint8_t green = (color / 256) % 256;
+	uint8_t red = ((color / 256) / 256) % 256;
+
+	return sf::Color(red, green, blue);
 }

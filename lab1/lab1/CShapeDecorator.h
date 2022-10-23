@@ -1,28 +1,29 @@
 #pragma once
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include <string>
 #include <memory>
-#include "CPoint.h"
-#include "ICanvasDrawable.h"
-#include <SFML/Graphics.hpp>
+
 
 class CShapeDecorator : public sf::Shape
 {
 public:
-	int GetArea() const;
-	int GetPerimeter() const;
-	std::string ToString() const;
-	uint32_t GetOutlineColor() const;
-	uint32_t GetFillColor() const;
-	virtual bool Draw(sf::RenderWindow& window) = 0;
-	//virtual ~CShapeDecorator() = default;
+	std::size_t getPointCount() const override { return 0; };
+	sf::Vector2f getPoint(std::size_t index) const override { return { 0, 0 }; };
 
+	virtual int GetArea() const = 0;
+	virtual int GetPerimeter() const = 0;
+	virtual std::string ToString() const = 0;
+	bool Draw(sf::RenderWindow& window);
+	
 protected:
-	CShapeDecorator() {};
-	virtual int GetShapeArea() const = 0;
-	virtual int GetShapePerimeter() const = 0;
-	virtual std::string GetShapeName() const = 0;
-	virtual uint32_t GetShapeOutlineColor() const = 0;
-	virtual uint32_t GetShapeFillColor() const = 0;
-	sf::Color GetColor(uint32_t color);
+	CShapeDecorator(std::unique_ptr<sf::Shape>&& shape, sf::Color fillColor, sf::Color outlineColor)
+		: m_shape(std::move(shape)),
+		m_fillColor(fillColor),
+		m_outlineColor(outlineColor) {}
+
+private:
+	std::unique_ptr<sf::Shape> m_shape;
+	sf::Color m_fillColor;
+	sf::Color m_outlineColor;
 };
