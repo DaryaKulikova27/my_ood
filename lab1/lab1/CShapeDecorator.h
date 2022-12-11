@@ -3,20 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <memory>
+#include "CShape.h"
 
 
-class CShapeDecorator : public sf::Shape
+class CShapeDecorator: public CShape
 {
 public:
-	std::size_t getPointCount() const override { return 0; };
-	sf::Vector2f getPoint(std::size_t index) const override { return { 0, 0 }; };
-
-	virtual int GetArea() const = 0;
-	virtual int GetPerimeter() const = 0;
-	virtual std::string ToString() const = 0;
-	virtual void Move(sf::Vector2f const& offset) = 0;
-	virtual sf::Rect<float> GetShapeBounds() const = 0;
-	bool Draw(sf::RenderWindow& window);
+	bool Draw(sf::RenderWindow& window) const override;
 	
 protected:
 	CShapeDecorator(std::unique_ptr<sf::Shape>&& shape, sf::Color fillColor, sf::Color outlineColor)

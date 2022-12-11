@@ -8,7 +8,7 @@
 #include <set>
 #include <functional>
 #include <optional>
-#include "CShapeDecorator.h"
+#include "CShape.h"
 
 enum TouchState {
 	IDLE,
@@ -30,12 +30,12 @@ private:
 	bool AddRectangle(std::istream& args);
 	bool AddTRiangle(std::istream& args);
 	bool AddCircle(std::istream& args);
-	std::optional< std::shared_ptr<CShapeDecorator> > GetTouchedShape(sf::Vector2f point);
+	std::optional< std::shared_ptr<CShape> > GetTouchedShape(sf::Vector2f point);
 	TouchState m_touchState;
 	sf::Vector2f m_previousTouchPoint;
 	std::unique_ptr<sf::RectangleShape> m_shapeBorder;
-	std::vector<std::shared_ptr<CShapeDecorator>> m_shapeList;
-	std::set<std::shared_ptr<CShapeDecorator>> m_selectedShapeSet;
+	std::set<std::shared_ptr<CShape>> m_shapeList;
+	std::set<std::shared_ptr<CShape>> m_selectedShapeSet;
 
 	using Handler = std::function<bool(std::istream& args)>;
 	using ActionMap = std::map<std::string, Handler>;

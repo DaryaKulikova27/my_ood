@@ -1,4 +1,5 @@
 #include "CController.h"
+#include "CCompositeShape.h"
 #include <algorithm>
 #include <sstream>
 #include <string>
@@ -69,9 +70,9 @@ bool CController::Info() const
 
 bool CController::PrintInfoShapes() const
 {
-	for (int i = 0; i < m_shapeList.size(); i++)
+	for (auto shape : m_shapeList)
 	{
-		m_output << m_shapeList[i]->ToString();
+		m_output << shape->ToString();
 		m_output << std::endl;
 	}
 	m_output << std::endl;
@@ -97,7 +98,7 @@ bool CController::AddRectangle(std::istream& args)
 	rectangle->setFillColor(GetColor(fillColor));
 
 	auto shape = std::make_shared<CRectangleDecorator>(std::move(rectangle), leftTop, rightBottom, GetColor(fillColor), GetColor(outlineColor));
-	m_shapeList.push_back(std::move(shape));
+	m_shapeList.insert(std::move(shape));
 	return true;
 }
 
@@ -124,7 +125,7 @@ bool CController::AddTRiangle(std::istream& args)
 	triangle->setFillColor(GetColor(fillColor));
 
 	auto shape = std::make_shared<CTriangleDecorator>(std::move(triangle), vertex1, vertex2, vertex3, GetColor(fillColor), GetColor(outlineColor));
-	m_shapeList.push_back(std::move(shape));
+	m_shapeList.insert(std::move(shape));
 	return true;
 }
 
@@ -148,7 +149,7 @@ bool CController::AddCircle(std::istream& args)
 	circle->setFillColor(GetColor(fillColor));
 
 	auto shape = std::make_shared<CCircleDecorator>(std::move(circle), center, radius, GetColor(fillColor), GetColor(outlineColor));
-	m_shapeList.push_back(std::move(shape));
+	m_shapeList.insert(std::move(shape));
 	return true;
 }
 
@@ -165,7 +166,14 @@ bool CController::Draw()
 				window.close();
 				break;
 			case sf::Event::KeyPressed:
-
+				if (event.key.code == sf::Keyboard::G && event.key.control)
+					if (m_selectedShapeSet.size() > 0)
+					{
+						for (auto element : m_selectedShapeSet)
+							m_shapeList.erase(element);
+						m_shapeList.insert(std::make_shared<CCompositeShape>(m_selectedShapeSet));
+					}
+				
 				break;
 			case sf::Event::MouseButtonPressed:
 				if (event.key.code == sf::Mouse::Left)
@@ -226,7 +234,7 @@ bool CController::Draw()
 	return true;
 }
 
-std::optional<std::shared_ptr<CShapeDecorator>> CController::GetTouchedShape(sf::Vector2f point)
+std::optional<std::shared_ptr<CShape>> CController::GetTouchedShape(sf::Vector2f point)
 {
 	for (auto& shape : m_shapeList)
 		if (shape->GetShapeBounds().contains(point))

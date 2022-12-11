@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CCircleDecorator.cpp" />
+    <ClCompile Include="CCompositeShape.cpp" />
     <ClCompile Include="CController.cpp" />
     <ClCompile Include="CRectangleDecorator.cpp" />
     <ClCompile Include="CShapeDecorator.cpp" />
@@ -157,9 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCircleDecorator.h" />
+    <ClInclude Include="CCompositeShape.h" />
     <ClInclude Include="CController.h" />
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangleDecorator.h" />
+    <ClInclude Include="CShape.h" />
     <ClInclude Include="CShapeDecorator.h" />
     <ClInclude Include="CTriangleDecorator.h" />
   </ItemGroup>
