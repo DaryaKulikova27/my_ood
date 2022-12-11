@@ -30,3 +30,31 @@ std::string CTriangleDecorator::ToString() const
 	return str;
 }
 
+void CTriangleDecorator::Move(sf::Vector2f const& offset)
+{
+	this->move(offset);
+	m_vertex1 += offset;
+	m_vertex2 += offset;
+	m_vertex3 += offset;
+}
+
+sf::Rect<float> CTriangleDecorator::GetShapeBounds() const
+{
+	sf::Vector2f minVertex = { m_vertex1 };
+	sf::Vector2f maxVertex = { m_vertex2 };
+	minVertex.x = std::min(m_vertex1.x, minVertex.x);
+	minVertex.y = std::min(m_vertex1.y, minVertex.y);
+	maxVertex.x = std::max(m_vertex1.x, maxVertex.x);
+	maxVertex.y = std::max(m_vertex1.y, maxVertex.y);
+
+	minVertex.x = std::min(m_vertex2.x, minVertex.x);
+	minVertex.y = std::min(m_vertex2.y, minVertex.y);
+	maxVertex.x = std::max(m_vertex2.x, maxVertex.x);
+	maxVertex.y = std::max(m_vertex2.y, maxVertex.y);
+
+	minVertex.x = std::min(m_vertex3.x, minVertex.x);
+	minVertex.y = std::min(m_vertex3.y, minVertex.y);
+	maxVertex.x = std::max(m_vertex3.x, maxVertex.x);
+	maxVertex.y = std::max(m_vertex3.y, maxVertex.y);
+	return { minVertex, maxVertex - minVertex };
+}

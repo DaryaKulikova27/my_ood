@@ -29,5 +29,15 @@ std::string CRectangleDecorator::ToString() const
 	return str;
 }
 
+void CRectangleDecorator::Move(sf::Vector2f const& offset)
+{
+	this->move(offset);
+	m_leftTop += offset;
+	m_rightBottom += offset;
+}
 
-
+sf::Rect<float> CRectangleDecorator::GetShapeBounds() const
+{
+	std::cout << m_leftTop.x << " " << m_leftTop.y << " \n";
+	return { m_leftTop, m_rightBottom - m_leftTop };
+}

@@ -13,6 +13,9 @@ public:
 	int GetPerimeter() const override;
 	std::string ToString() const override;
 	sf::Vector2f GetCenter() const;
+
+	void Move(sf::Vector2f const& offset) override;
+	sf::Rect<float> GetShapeBounds() const override;
 	
 
 private:

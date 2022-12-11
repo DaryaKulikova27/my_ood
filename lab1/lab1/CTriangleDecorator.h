@@ -14,6 +14,8 @@ protected:
 	int GetArea() const override;
 	int GetPerimeter() const override;
 	std::string ToString() const override;
+	void Move(sf::Vector2f const& offset) override;
+	sf::Rect<float> GetShapeBounds() const override;
 
 private:
 	sf::Vector2f m_vertex1, m_vertex2, m_vertex3;

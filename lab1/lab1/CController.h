@@ -22,7 +22,9 @@ private:
 	bool AddRectangle(std::istream& args);
 	bool AddTRiangle(std::istream& args);
 	bool AddCircle(std::istream& args);
+	std::unique_ptr<sf::RectangleShape> m_shapeBorder;
 	std::vector<std::unique_ptr<CShapeDecorator>> m_shapeList;
+	std::vector<std::unique_ptr<CShapeDecorator>> m_selectedShapeList;
 
 	using Handler = std::function<bool(std::istream& args)>;
 	using ActionMap = std::map<std::string, Handler>;

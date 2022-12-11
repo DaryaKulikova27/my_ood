@@ -8,6 +8,8 @@ CController::CController(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
 	, m_shapeList()
+	, m_shapeBorder()
+	, m_selectedShapeList()
 	, m_actionMap({
 			{ "RECTANGLE", [this](std::istream& strm) {
 			   return AddRectangle(strm);
@@ -27,7 +29,13 @@ CController::CController(std::istream& input, std::ostream& output)
 			{ "Draw", [this](std::istream& strm) {
 				return Draw();
 			} }
-}) {};
+}) {
+	m_shapeBorder->setSize({ 0, 0 });
+	m_shapeBorder->setPosition({ 0, 0 });
+	m_shapeBorder->setOutlineThickness(1);
+	m_shapeBorder->setOutlineColor(sf::Color::Black);
+	m_shapeBorder->setFillColor(sf::Color::Transparent);
+};
 
 bool CController::HandleCommand() const
 {
@@ -51,7 +59,7 @@ bool CController::Info() const
 	m_output << "If you want to add rectangle, write \"RECTANGLE <left top (x, y)> <right bottom (x, y)> <outline color> <fill color>\"" << std::endl;
 	m_output << "If you want to add triangle, write \"TRIANGLE <x1> <y1> <x2> <y2> <x3> <y3> <outline color> <fill color>\"" << std::endl;
 	m_output << "If you want to add circle, write \"CIRCLE <x> <y> <radius> <outline color> <fill color>\"" << std::endl;
-	m_output << "If youy want to get info about shapes, write \"PrintInfoShapes\"" << std::endl;
+	m_output << "If you want to get info about shapes, write \"PrintInfoShapes\"" << std::endl;
 	m_output << "If you want to know this info, write \"Info\"" << std::endl;
 	m_output << "If you want to draw shapes, write \"Draw\"" << std::endl;
 	return true;
@@ -150,8 +158,30 @@ bool CController::Draw()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type) {
+			case sf::Event::Closed:
 				window.close();
+				break;
+			case sf::Event::KeyPressed:
+
+				break;
+			case sf::Event::MouseButtonReleased:
+				if (event.key.code == sf::Mouse::Left)
+				{
+					std::cout << "clicked ok " << event.mouseButton.x << " " << event.mouseButton.y << "\n";
+					for (auto& shape : m_shapeList) {
+						auto bounds = shape->GetShapeBounds();
+						std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << " " << "\n";
+						if (shape->GetShapeBounds().contains({ (float)event.mouseButton.x, (float)event.mouseButton.y }))
+						{
+							m_selectedShapeList.clear();
+							m_selectedShapeList.push_back(shape);
+						}
+					}
+				}
+				break;
+			}
+			std::cout << event.type;
 		}
 
 		window.clear(sf::Color::White);
@@ -159,6 +189,13 @@ bool CController::Draw()
 		{
 			auto& shape = m_shapeList[i];
 			shape->Draw(window);
+		}
+
+		if (m_selectedShapeList.size() > 0) {
+			auto bounds = m_selectedShapeList[0]->GetShapeBounds();
+			m_shapeBorder->setPosition({ bounds.left, bounds.top });
+			m_shapeBorder->setSize({ bounds.width, bounds.height });
+			window.draw(*m_shapeBorder);
 		}
 		
 		window.display();

@@ -12,6 +12,9 @@ public:
 	int GetPerimeter() const override;
 	std::string ToString() const override;
 
+	void Move(sf::Vector2f const& offset) override;
+	sf::Rect<float> GetShapeBounds() const override;
+
 private:
 	sf::Vector2f m_leftTop, m_rightBottom;
 	uint32_t m_outlineColor, m_fillColor;

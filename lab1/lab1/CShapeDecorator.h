@@ -14,6 +14,8 @@ public:
 	virtual int GetArea() const = 0;
 	virtual int GetPerimeter() const = 0;
 	virtual std::string ToString() const = 0;
+	virtual void Move(sf::Vector2f const& offset) = 0;
+	virtual sf::Rect<float> GetShapeBounds() const = 0;
 	bool Draw(sf::RenderWindow& window);
 	
 protected:

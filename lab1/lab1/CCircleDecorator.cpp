@@ -28,3 +28,15 @@ std::string CCircleDecorator::ToString() const
 	str += std::to_string(GetArea());
 	return str;
 }
+
+void CCircleDecorator::Move(sf::Vector2f const& offset)
+{
+	this->move(offset);
+	m_center += offset;
+}
+
+sf::Rect<float> CCircleDecorator::GetShapeBounds() const
+{
+	sf::Vector2f halfSize = { (float) m_radius, (float) m_radius };
+	return { m_center - halfSize, halfSize * 2.0f };
+}
