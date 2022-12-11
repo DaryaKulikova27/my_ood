@@ -5,6 +5,7 @@
 #include "CTriangleDecorator.h"
 #include <vector>
 #include <map>
+#include <set>
 #include <functional>
 #include "CShapeDecorator.h"
 
@@ -23,8 +24,8 @@ private:
 	bool AddTRiangle(std::istream& args);
 	bool AddCircle(std::istream& args);
 	std::unique_ptr<sf::RectangleShape> m_shapeBorder;
-	std::vector<std::unique_ptr<CShapeDecorator>> m_shapeList;
-	std::vector<std::unique_ptr<CShapeDecorator>> m_selectedShapeList;
+	std::vector<std::shared_ptr<CShapeDecorator>> m_shapeList;
+	std::set< std::shared_ptr<CShapeDecorator>> m_selectedShapeSet;
 
 	using Handler = std::function<bool(std::istream& args)>;
 	using ActionMap = std::map<std::string, Handler>;
@@ -36,3 +37,4 @@ private:
 };
 
 sf::Color GetColor(uint32_t color);
+sf::FloatRect CombineRects(sf::FloatRect first, sf::FloatRect second);

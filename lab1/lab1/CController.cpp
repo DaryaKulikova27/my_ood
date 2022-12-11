@@ -9,7 +9,7 @@ CController::CController(std::istream& input, std::ostream& output)
 	, m_output(output)
 	, m_shapeList()
 	, m_shapeBorder()
-	, m_selectedShapeList()
+	, m_selectedShapeSet()
 	, m_actionMap({
 			{ "RECTANGLE", [this](std::istream& strm) {
 			   return AddRectangle(strm);
@@ -30,10 +30,11 @@ CController::CController(std::istream& input, std::ostream& output)
 				return Draw();
 			} }
 }) {
+	m_shapeBorder = std::make_unique<sf::RectangleShape>();
 	m_shapeBorder->setSize({ 0, 0 });
 	m_shapeBorder->setPosition({ 0, 0 });
 	m_shapeBorder->setOutlineThickness(1);
-	m_shapeBorder->setOutlineColor(sf::Color::Black);
+	m_shapeBorder->setOutlineColor(sf::Color::Cyan);
 	m_shapeBorder->setFillColor(sf::Color::Transparent);
 };
 
@@ -94,7 +95,7 @@ bool CController::AddRectangle(std::istream& args)
 	rectangle->setOutlineColor(GetColor(outlineColor));
 	rectangle->setFillColor(GetColor(fillColor));
 
-	auto shape = std::make_unique<CRectangleDecorator>(std::move(rectangle), leftTop, rightBottom, GetColor(fillColor), GetColor(outlineColor));
+	auto shape = std::make_shared<CRectangleDecorator>(std::move(rectangle), leftTop, rightBottom, GetColor(fillColor), GetColor(outlineColor));
 	m_shapeList.push_back(std::move(shape));
 	return true;
 }
@@ -121,7 +122,7 @@ bool CController::AddTRiangle(std::istream& args)
 	triangle->setOutlineColor(GetColor(outlineColor));
 	triangle->setFillColor(GetColor(fillColor));
 
-	auto shape = std::make_unique<CTriangleDecorator>(std::move(triangle), vertex1, vertex2, vertex3, GetColor(fillColor), GetColor(outlineColor));
+	auto shape = std::make_shared<CTriangleDecorator>(std::move(triangle), vertex1, vertex2, vertex3, GetColor(fillColor), GetColor(outlineColor));
 	m_shapeList.push_back(std::move(shape));
 	return true;
 }
@@ -145,7 +146,7 @@ bool CController::AddCircle(std::istream& args)
 	circle->setOutlineColor(GetColor(outlineColor));
 	circle->setFillColor(GetColor(fillColor));
 
-	auto shape = std::make_unique<CCircleDecorator>(std::move(circle), center, radius, GetColor(fillColor), GetColor(outlineColor));
+	auto shape = std::make_shared<CCircleDecorator>(std::move(circle), center, radius, GetColor(fillColor), GetColor(outlineColor));
 	m_shapeList.push_back(std::move(shape));
 	return true;
 }
@@ -168,16 +169,19 @@ bool CController::Draw()
 			case sf::Event::MouseButtonReleased:
 				if (event.key.code == sf::Mouse::Left)
 				{
-					std::cout << "clicked ok " << event.mouseButton.x << " " << event.mouseButton.y << "\n";
+					bool foundShape = false;
 					for (auto& shape : m_shapeList) {
 						auto bounds = shape->GetShapeBounds();
-						std::cout << bounds.left << " " << bounds.top << " " << bounds.width << " " << bounds.height << " " << "\n";
 						if (shape->GetShapeBounds().contains({ (float)event.mouseButton.x, (float)event.mouseButton.y }))
 						{
-							m_selectedShapeList.clear();
-							m_selectedShapeList.push_back(shape);
+							if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && !sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+								m_selectedShapeSet.clear();
+							m_selectedShapeSet.insert(shape);
+							foundShape = true;
 						}
 					}
+					if (!foundShape)
+						m_selectedShapeSet.clear();
 				}
 				break;
 			}
@@ -185,14 +189,13 @@ bool CController::Draw()
 		}
 
 		window.clear(sf::Color::White);
-		for (int i = 0; i < m_shapeList.size(); i++)
-		{
-			auto& shape = m_shapeList[i];
+		for (auto& shape : m_shapeList)
 			shape->Draw(window);
-		}
 
-		if (m_selectedShapeList.size() > 0) {
-			auto bounds = m_selectedShapeList[0]->GetShapeBounds();
+		if (m_selectedShapeSet.size() > 0) {
+			auto bounds = (*m_selectedShapeSet.begin())->GetShapeBounds();
+			for (auto& shape : m_selectedShapeSet)
+				bounds = CombineRects(bounds, shape->GetShapeBounds());
 			m_shapeBorder->setPosition({ bounds.left, bounds.top });
 			m_shapeBorder->setSize({ bounds.width, bounds.height });
 			window.draw(*m_shapeBorder);
@@ -211,4 +214,14 @@ sf::Color GetColor(uint32_t color)
 	uint8_t red = ((color / 256) / 256) % 256;
 
 	return sf::Color(red, green, blue);
+}
+
+sf::FloatRect CombineRects(sf::FloatRect first, sf::FloatRect second)
+{
+	sf::Vector2f min = { std::min(first.left, second.left), std::min(first.top, second.top) };
+	sf::Vector2f max = { std::max(first.left + first.width, second.left + second.width), std::max(first.top + first.height, second.top + second.height) };
+
+	return {
+		min, max - min
+	};
 }
