@@ -7,7 +7,14 @@
 #include <map>
 #include <set>
 #include <functional>
+#include <optional>
 #include "CShapeDecorator.h"
+
+enum TouchState {
+	IDLE,
+	TOUCH_DOWN_ON_OBJECT,
+	TOUCH_MOVED
+};
 
 class CController
 {
@@ -23,9 +30,12 @@ private:
 	bool AddRectangle(std::istream& args);
 	bool AddTRiangle(std::istream& args);
 	bool AddCircle(std::istream& args);
+	std::optional< std::shared_ptr<CShapeDecorator> > GetTouchedShape(sf::Vector2f point);
+	TouchState m_touchState;
+	sf::Vector2f m_previousTouchPoint;
 	std::unique_ptr<sf::RectangleShape> m_shapeBorder;
 	std::vector<std::shared_ptr<CShapeDecorator>> m_shapeList;
-	std::set< std::shared_ptr<CShapeDecorator>> m_selectedShapeSet;
+	std::set<std::shared_ptr<CShapeDecorator>> m_selectedShapeSet;
 
 	using Handler = std::function<bool(std::istream& args)>;
 	using ActionMap = std::map<std::string, Handler>;

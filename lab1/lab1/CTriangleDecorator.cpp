@@ -32,7 +32,7 @@ std::string CTriangleDecorator::ToString() const
 
 void CTriangleDecorator::Move(sf::Vector2f const& offset)
 {
-	this->move(offset);
+	this->m_shape->move(offset);
 	m_vertex1 += offset;
 	m_vertex2 += offset;
 	m_vertex3 += offset;

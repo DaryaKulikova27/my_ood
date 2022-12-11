@@ -31,7 +31,7 @@ std::string CRectangleDecorator::ToString() const
 
 void CRectangleDecorator::Move(sf::Vector2f const& offset)
 {
-	this->move(offset);
+	this->m_shape->move(offset);
 	m_leftTop += offset;
 	m_rightBottom += offset;
 }

@@ -24,8 +24,9 @@ protected:
 		m_fillColor(fillColor),
 		m_outlineColor(outlineColor) {}
 
-private:
 	std::unique_ptr<sf::Shape> m_shape;
+
+private:
 	sf::Color m_fillColor;
 	sf::Color m_outlineColor;
 };

@@ -30,6 +30,7 @@ CController::CController(std::istream& input, std::ostream& output)
 				return Draw();
 			} }
 }) {
+	m_touchState = IDLE;
 	m_shapeBorder = std::make_unique<sf::RectangleShape>();
 	m_shapeBorder->setSize({ 0, 0 });
 	m_shapeBorder->setPosition({ 0, 0 });
@@ -166,22 +167,41 @@ bool CController::Draw()
 			case sf::Event::KeyPressed:
 
 				break;
+			case sf::Event::MouseButtonPressed:
+				if (event.key.code == sf::Mouse::Left)
+				{
+					sf::Vector2f point = { (float)event.mouseButton.x, (float)event.mouseButton.y };
+					auto shape = GetTouchedShape(point);
+					if (shape)
+						m_touchState = TOUCH_DOWN_ON_OBJECT;
+					m_previousTouchPoint = point;
+				}
+				break;
 			case sf::Event::MouseButtonReleased:
 				if (event.key.code == sf::Mouse::Left)
 				{
-					bool foundShape = false;
-					for (auto& shape : m_shapeList) {
-						auto bounds = shape->GetShapeBounds();
-						if (shape->GetShapeBounds().contains({ (float)event.mouseButton.x, (float)event.mouseButton.y }))
-						{
+					if (m_touchState != TOUCH_MOVED) {
+						sf::Vector2f point = { (float)event.mouseButton.x, (float)event.mouseButton.y };
+						auto shape = GetTouchedShape(point);
+						if (shape) {
 							if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && !sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
 								m_selectedShapeSet.clear();
-							m_selectedShapeSet.insert(shape);
-							foundShape = true;
+							m_selectedShapeSet.insert(*shape);
 						}
+						else
+							m_selectedShapeSet.clear();
 					}
-					if (!foundShape)
-						m_selectedShapeSet.clear();
+					m_touchState = IDLE;
+				}
+				break;
+			case sf::Event::MouseMoved:
+				if (m_touchState == TOUCH_DOWN_ON_OBJECT || m_touchState == TOUCH_MOVED)
+				{
+					sf::Vector2f newPoint = { (float)event.mouseMove.x, (float)event.mouseMove.y };
+					for (auto& shape : m_selectedShapeSet)
+						shape->Move(newPoint - m_previousTouchPoint);
+					m_previousTouchPoint = newPoint;
+					m_touchState = TOUCH_MOVED;
 				}
 				break;
 			}
@@ -204,6 +224,14 @@ bool CController::Draw()
 		window.display();
 	}
 	return true;
+}
+
+std::optional<std::shared_ptr<CShapeDecorator>> CController::GetTouchedShape(sf::Vector2f point)
+{
+	for (auto& shape : m_shapeList)
+		if (shape->GetShapeBounds().contains(point))
+			return { shape };
+	return std::nullopt;
 }
 
 
