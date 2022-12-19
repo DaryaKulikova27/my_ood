@@ -10,6 +10,7 @@ class CShapeDecorator: public CShape
 {
 public:
 	bool Draw(sf::RenderWindow& window) const override;
+	bool IsComposite() const override;
 	
 protected:
 	CShapeDecorator(std::unique_ptr<sf::Shape>&& shape, sf::Color fillColor, sf::Color outlineColor)

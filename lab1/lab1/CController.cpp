@@ -172,8 +172,20 @@ bool CController::Draw()
 						for (auto element : m_selectedShapeSet)
 							m_shapeList.erase(element);
 						m_shapeList.insert(std::make_shared<CCompositeShape>(m_selectedShapeSet));
+						m_selectedShapeSet.clear();
 					}
-				
+				if (event.key.code == sf::Keyboard::U && event.key.control)
+					if (m_selectedShapeSet.size() == 1)
+					{
+						auto element = *m_selectedShapeSet.begin();
+						if (element->IsComposite())
+						{
+							CCompositeShape* composite = dynamic_cast<CCompositeShape*>(element.get());
+							auto childShapes = composite->GetShapeList();
+							m_shapeList.insert(childShapes.begin(), childShapes.end());
+							m_shapeList.erase(element);
+						}
+					}
 				break;
 			case sf::Event::MouseButtonPressed:
 				if (event.key.code == sf::Mouse::Left)
@@ -203,7 +215,7 @@ bool CController::Draw()
 				}
 				break;
 			case sf::Event::MouseMoved:
-				if (m_touchState == TOUCH_DOWN_ON_OBJECT || m_touchState == TOUCH_MOVED)
+				if (m_touchState == TOUCH_DOWN_ON_OBJECT)
 				{
 					sf::Vector2f newPoint = { (float)event.mouseMove.x, (float)event.mouseMove.y };
 					for (auto& shape : m_selectedShapeSet)
@@ -213,7 +225,7 @@ bool CController::Draw()
 				}
 				break;
 			}
-			std::cout << event.type;
+			//std::cout << event.type;
 		}
 
 		window.clear(sf::Color::White);
@@ -245,11 +257,7 @@ std::optional<std::shared_ptr<CShape>> CController::GetTouchedShape(sf::Vector2f
 
 sf::Color GetColor(uint32_t color)
 {
-	uint8_t blue = color % 256;
-	uint8_t green = (color / 256) % 256;
-	uint8_t red = ((color / 256) / 256) % 256;
-
-	return sf::Color(red, green, blue);
+	return sf::Color(color);
 }
 
 sf::FloatRect CombineRects(sf::FloatRect first, sf::FloatRect second)

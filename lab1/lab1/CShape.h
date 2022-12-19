@@ -10,4 +10,5 @@ public:
 	virtual void Move(sf::Vector2f const& offset) = 0;
 	virtual sf::Rect<float> GetShapeBounds() const = 0;
 	virtual bool Draw(sf::RenderWindow& window) const = 0;
+	virtual bool IsComposite() const = 0;
 };

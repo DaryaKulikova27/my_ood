@@ -47,3 +47,13 @@ sf::Rect<float> CCompositeShape::GetShapeBounds() const {
 	}
 	return { 0,0,0,0 };
 }
+
+bool CCompositeShape::IsComposite() const
+{
+	return true;
+}
+
+std::set<std::shared_ptr<CShape>> CCompositeShape::GetShapeList() const
+{
+	return m_shapes_list;
+}
