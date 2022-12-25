@@ -15,7 +15,6 @@ public:
 	void Move(sf::Vector2f const& offset) override;
 	sf::Rect<float> GetShapeBounds() const override;
 	bool IsComposite() const override;
-
 	std::set<std::shared_ptr<CShape>> GetShapeList() const;
 
 

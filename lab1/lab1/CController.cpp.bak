@@ -227,7 +227,7 @@ bool CController::Draw()
 				}
 				break;
 			}
-			//std::cout << event.type;
+			std::cout << event.type;
 		}
 
 		window.clear(sf::Color::White);

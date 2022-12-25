@@ -30,7 +30,7 @@ private:
 	bool AddRectangle(std::istream& args);
 	bool AddTRiangle(std::istream& args);
 	bool AddCircle(std::istream& args);
-	std::optional<std::shared_ptr<CShape>> GetTouchedShape(sf::Vector2f point);
+	std::optional< std::shared_ptr<CShape> > GetTouchedShape(sf::Vector2f point);
 	TouchState m_touchState;
 	sf::Vector2f m_previousTouchPoint;
 	std::unique_ptr<sf::RectangleShape> m_shapeBorder;
