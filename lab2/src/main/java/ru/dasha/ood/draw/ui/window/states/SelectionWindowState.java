@@ -32,9 +32,8 @@ public class SelectionWindowState implements WindowState {
     @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {
         if (event.getCode() == KeyCode.G && event.isControlDown() && context.getSelectedNodes().size() > 1) {
-            HashSet<GenericNode> nodesList = new HashSet<>();
-            nodesList.addAll(context.getSelectedNodes());
-            GenericNode createdNode = (GenericNode) context.dispatchCommand(new CreateCompositeNodeCommand(nodesList));
+            HashSet<GenericNode> nodesList = new HashSet<>(context.getSelectedNodes());
+            context.dispatchCommand(new CreateCompositeNodeCommand(nodesList));
             context.clearSelectedNodes();
         } else if (event.getCode() == KeyCode.U && event.isControlDown() && context.getSelectedNodes().size() == 1) {
             for (GenericNode node : context.getSelectedNodes())
@@ -73,10 +72,11 @@ public class SelectionWindowState implements WindowState {
     }
 
     private GenericNode findPointedNode(Set<GenericNode> nodes, Point2D point) {
+        GenericNode foundNode = null;
         for (GenericNode node : nodes)
             if (node.getBounds().contains(point))
-                return node;
-        return null;
+                foundNode = node;
+        return foundNode;
     }
 
     @Override

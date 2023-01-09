@@ -7,13 +7,19 @@ import javafx.scene.layout.HBox;
 import java.util.List;
 
 public class ButtonGroup extends HBox {
-    private List<Button> buttons;
+    public interface Callback {
+        void selectionChanged(int index);
+    }
+
+    private final List<Button> buttons;
     private int selected = 0;
+    private final Callback callback;
 
     /**
      * Creates an HBox layout with spacing = 0.
      */
-    public ButtonGroup(Button... buttons) {
+    public ButtonGroup(Callback callback, Button... buttons) {
+        this.callback = callback;
         this.buttons = List.of(buttons);
         subscribeClicks();
         initLayout();
@@ -30,7 +36,11 @@ public class ButtonGroup extends HBox {
 
     private void buttonClicked(int index)
     {
+        if (selected == index)
+            return;
         selected = index;
+        if (callback != null)
+            callback.selectionChanged(index);
         updateSelection();
     }
 

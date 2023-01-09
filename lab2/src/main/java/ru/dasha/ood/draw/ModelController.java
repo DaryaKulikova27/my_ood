@@ -10,12 +10,11 @@ import ru.dasha.ood.draw.shapes.CircleShape;
 import ru.dasha.ood.draw.shapes.PolygonShape;
 import ru.dasha.ood.draw.shapes.RectangleShape;
 import ru.dasha.ood.draw.ui.window.WindowController;
-
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class ModelController {
-    private Set<GenericNode> shapes = new HashSet<>();
+    private final Set<GenericNode> shapes = new LinkedHashSet<>();
 
     public void openWindow() {
         WindowController wc = new WindowController(this);

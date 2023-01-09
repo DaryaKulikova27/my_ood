@@ -19,8 +19,7 @@ import ru.dasha.ood.draw.ModelController;
 import ru.dasha.ood.draw.commands.IModelCommand;
 import ru.dasha.ood.draw.nodes.GenericNode;
 import ru.dasha.ood.draw.ui.widgets.ToolPane;
-import ru.dasha.ood.draw.ui.window.states.SelectionWindowState;
-import ru.dasha.ood.draw.ui.window.states.WindowState;
+import ru.dasha.ood.draw.ui.window.states.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +29,8 @@ public class WindowController implements IWindowContext {
     private Canvas canvas;
     private GraphicsContext gc;
     private AnimationTimer timer;
-    private ModelController model;
-    private Set<GenericNode> selectedNodes = new HashSet<>();
+    private final ModelController model;
+    private final Set<GenericNode> selectedNodes = new HashSet<>();
     private WindowState currentState = new SelectionWindowState();
 
     public WindowController(ModelController model) {
@@ -114,7 +113,7 @@ public class WindowController implements IWindowContext {
         BorderPane border = new BorderPane();
 
         border.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-        border.setTop(new ToolPane());
+        border.setTop(new ToolPane(this::updateStateFromType));
         CanvasPane pane = new CanvasPane(0, 0);
         canvas = pane.getCanvas();
         border.setCenter(pane);
@@ -162,6 +161,23 @@ public class WindowController implements IWindowContext {
     public void setCurrentState(WindowState newState) {
         currentState = newState;
         currentState.activate(this);
+    }
+
+    public void updateStateFromType(WindowStateType type) {
+        switch (type) {
+            case SELECTION:
+                setCurrentState(new SelectionWindowState());
+                break;
+            case ADD_CIRCLE:
+                setCurrentState(new CreateCircleWindowState());
+                break;
+            case ADD_RECTANGLE:
+                setCurrentState(new CreateRectWindowState());
+                break;
+            case ADD_TRIANGLE:
+                setCurrentState(new CreateTriangleWindowState());
+                break;
+        }
     }
 
     @Override
