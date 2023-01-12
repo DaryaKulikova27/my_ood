@@ -2,20 +2,24 @@ package ru.dasha.ood.draw.ui.widgets;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import ru.dasha.ood.draw.ui.IconFactory;
+import ru.dasha.ood.draw.ui.window.IWindowContext;
 import ru.dasha.ood.draw.ui.window.WindowStateType;
 
 public class ToolPane extends HBox {
-    private final UpdateWindowStateCallback windowStateUpdate;
+    private IWindowContext windowStateUpdate;
 
-    public ToolPane(UpdateWindowStateCallback windowStateUpdate) {
+    public ToolPane(IWindowContext windowStateUpdate) {
         this.windowStateUpdate = windowStateUpdate;
         initLayout();
         initStyles();
@@ -28,6 +32,21 @@ public class ToolPane extends HBox {
         buttonCurrent.setPrefSize(32, 32);
         buttonCurrent.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         return buttonCurrent;
+    }
+
+    private static void createChoiceBox(HBox rightBlock, String name, String[] choices, final UpdateChoiceCallback callback) {
+        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(choices));
+        cb.setMaxWidth(50);
+        cb.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                callback.update((String) newValue);
+                cb.getSelectionModel().clearSelection();
+            }
+        });
+        Label label = new Label(name);
+        label.getStyleClass().add("label-normal");
+        rightBlock.getChildren().add(label);
+        rightBlock.getChildren().add(cb);
     }
 
     private void initStyles() {
@@ -50,33 +69,56 @@ public class ToolPane extends HBox {
         final Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox rightBlock = new HBox();
-        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-                "Red", "Black", "Pink")
-        );
-        rightBlock.getChildren().add(cb);
-        getChildren().addAll(tools, spacer, rightBlock);
+        rightBlock.setAlignment(Pos.CENTER);
 
+        createChoiceBox(rightBlock, "   Fill color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White"}, this::selectNewFillColor);
+        createChoiceBox(rightBlock, "   Border color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White"}, this::selectNewBorderColor);
+        createChoiceBox(rightBlock, "   Border width:  ", new String[]{"1", "2", "3", "4", "5"}, this::selectNewBorderWidth);
+
+        getChildren().addAll(tools, spacer, rightBlock);
+    }
+
+    private void selectNewFillColor(String newColor) {
+        Color color = Color.web(newColor);
+
+        windowStateUpdate.updateNodesFillColor(color);
+    }
+
+    private void selectNewBorderColor(String newColor) {
+        Color color = Color.web(newColor);
+
+        windowStateUpdate.updateNodesBorderColor(color);
+    }
+
+    private void selectNewBorderWidth(String newBorderWidth) {
+        int width = Integer.parseInt(newBorderWidth);
+
+        windowStateUpdate.updateNodesBorderWidth(width);
     }
 
     private void buttonSelected(int index) {
         if (windowStateUpdate != null)
             switch (index) {
                 case 0:
-                    windowStateUpdate.update(WindowStateType.SELECTION);
+                    windowStateUpdate.updateStateFromType(WindowStateType.SELECTION);
                     break;
                 case 1:
-                    windowStateUpdate.update(WindowStateType.ADD_CIRCLE);
+                    windowStateUpdate.updateStateFromType(WindowStateType.ADD_CIRCLE);
                     break;
                 case 2:
-                    windowStateUpdate.update(WindowStateType.ADD_RECTANGLE);
+                    windowStateUpdate.updateStateFromType(WindowStateType.ADD_RECTANGLE);
                     break;
                 case 3:
-                    windowStateUpdate.update(WindowStateType.ADD_TRIANGLE);
+                    windowStateUpdate.updateStateFromType(WindowStateType.ADD_TRIANGLE);
                     break;
             }
     }
 
     public interface UpdateWindowStateCallback {
         void update(WindowStateType type);
+    }
+
+    public interface UpdateChoiceCallback {
+        void update(String type);
     }
 }

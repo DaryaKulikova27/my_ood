@@ -10,6 +10,10 @@
     dialog_background_color: background_color;
 }
 
+.label-normal {
+    -fx-font-size: 12pt;
+}
+
 /* To be used in "background" Panes */
 .background{
     -fx-background-color: background_color;

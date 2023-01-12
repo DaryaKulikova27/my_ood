@@ -32,8 +32,9 @@ public class SelectionWindowState implements WindowState {
     @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {
         if (event.getCode() == KeyCode.G && event.isControlDown() && context.getSelectedNodes().size() > 1) {
-            HashSet<GenericNode> nodesList = new HashSet<>(context.getSelectedNodes());
-            context.dispatchCommand(new CreateCompositeNodeCommand(nodesList));
+            HashSet<GenericNode> nodesList = new HashSet<>();
+            nodesList.addAll(context.getSelectedNodes());
+            GenericNode createdNode = (GenericNode) context.dispatchCommand(new CreateCompositeNodeCommand(nodesList));
             context.clearSelectedNodes();
         } else if (event.getCode() == KeyCode.U && event.isControlDown() && context.getSelectedNodes().size() == 1) {
             for (GenericNode node : context.getSelectedNodes())
@@ -83,8 +84,7 @@ public class SelectionWindowState implements WindowState {
     public void onMouseDrag(IWindowContext context, MouseEvent e) {
         Point2D currentPoint = new Point2D(e.getX(), e.getY());
         if (state == MouseState.TOUCH_DOWN_ON_SELECTION || state == MouseState.DRAGGING_SELECTION) {
-            for (GenericNode node : context.getSelectedNodes())
-                node.moveBy(currentPoint.subtract(lastPoint));
+            context.updateNodesMoveBy(currentPoint.subtract(lastPoint));
             state = MouseState.DRAGGING_SELECTION;
         } else {
             if (pinnedPoint == null)

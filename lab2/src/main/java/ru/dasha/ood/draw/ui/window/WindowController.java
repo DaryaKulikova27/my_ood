@@ -2,6 +2,7 @@ package ru.dasha.ood.draw.ui.window;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,7 +18,12 @@ import jfxtras.styles.jmetro.Style;
 import ru.dasha.ood.draw.Application;
 import ru.dasha.ood.draw.ModelController;
 import ru.dasha.ood.draw.commands.IModelCommand;
+import ru.dasha.ood.draw.commands.RunVisitorNodeCommand;
 import ru.dasha.ood.draw.nodes.GenericNode;
+import ru.dasha.ood.draw.nodes.visitors.BorderColorVisitor;
+import ru.dasha.ood.draw.nodes.visitors.BorderWidthVisitor;
+import ru.dasha.ood.draw.nodes.visitors.FillColorVisitor;
+import ru.dasha.ood.draw.nodes.visitors.MoveVisitor;
 import ru.dasha.ood.draw.ui.widgets.ToolPane;
 import ru.dasha.ood.draw.ui.window.states.*;
 
@@ -29,8 +35,8 @@ public class WindowController implements IWindowContext {
     private Canvas canvas;
     private GraphicsContext gc;
     private AnimationTimer timer;
-    private final ModelController model;
-    private final Set<GenericNode> selectedNodes = new HashSet<>();
+    private ModelController model;
+    private Set<GenericNode> selectedNodes = new HashSet<>();
     private WindowState currentState = new SelectionWindowState();
 
     public WindowController(ModelController model) {
@@ -113,7 +119,7 @@ public class WindowController implements IWindowContext {
         BorderPane border = new BorderPane();
 
         border.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-        border.setTop(new ToolPane(this::updateStateFromType));
+        border.setTop(new ToolPane(this));
         CanvasPane pane = new CanvasPane(0, 0);
         canvas = pane.getCanvas();
         border.setCenter(pane);
@@ -163,7 +169,8 @@ public class WindowController implements IWindowContext {
         currentState.activate(this);
     }
 
-    public void updateStateFromType(WindowStateType type) {
+    public void updateStateFromType(WindowStateType type)
+    {
         switch (type) {
             case SELECTION:
                 setCurrentState(new SelectionWindowState());
@@ -178,6 +185,34 @@ public class WindowController implements IWindowContext {
                 setCurrentState(new CreateTriangleWindowState());
                 break;
         }
+    }
+
+    @Override
+    public void updateNodesFillColor(Color background) {
+        FillColorVisitor visitor = new FillColorVisitor(background);
+
+        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
+    }
+
+    @Override
+    public void updateNodesBorderColor(Color background) {
+        BorderColorVisitor visitor = new BorderColorVisitor(background);
+
+        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
+    }
+
+    @Override
+    public void updateNodesBorderWidth(int width) {
+        BorderWidthVisitor visitor = new BorderWidthVisitor(width);
+
+        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
+    }
+
+    @Override
+    public void updateNodesMoveBy(Point2D diff) {
+        MoveVisitor visitor = new MoveVisitor(diff);
+
+        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
     }
 
     @Override

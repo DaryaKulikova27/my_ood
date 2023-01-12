@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/freedomcoder/Projects/Dasha/OOD/lab2/src/main/java/ru/dasha/ood/draw</OriginalElement>
+  <nodes>
+    <node x="3295.8640081799585" y="132.0">ru.dasha.ood.draw.shapes.PolygonShape</node>
+    <node x="2403.740580489097" y="802.5641838351822">ru.dasha.ood.draw.nodes.CompositeNode</node>
+    <node x="2777.3640081799585" y="1021.0">ru.dasha.ood.draw.nodes.decorators.RectangleShapeDecorator</node>
+    <node x="2810.8022943345277" y="616.191842803245">ru.dasha.ood.draw.nodes.GenericNode</node>
+    <node x="910.5787832715034" y="1831.8361752257397">ru.dasha.ood.draw.CommandlineReader</node>
+    <node x="-661.1195478592672" y="1320.1210728965912">ru.dasha.ood.draw.commands.CommandDispatcher</node>
+    <node x="1639.4144180329752" y="1205.8198027912727">ru.dasha.ood.draw.ui.window.WindowController</node>
+    <node x="3122.3640081799585" y="1021.0">ru.dasha.ood.draw.nodes.decorators.PolygonShapeDecorator</node>
+    <node x="3443.3640081799585" y="1021.0">ru.dasha.ood.draw.nodes.decorators.CircleShapeDecorator</node>
+    <node x="-317.1195478592672" y="1320.1210728965912">ru.dasha.ood.draw.commands.OpenWindowCommand</node>
+    <node x="2905.8640081799585" y="132.0">ru.dasha.ood.draw.shapes.RectangleShape</node>
+    <node x="773.9989933714107" y="2279.41850876969">ru.dasha.ood.draw.Main</node>
+    <node x="-1066.1195478592672" y="1320.1210728965912">ru.dasha.ood.draw.commands.CreateCompositeNodeCommand</node>
+    <node x="987.6474350868539" y="1160.5732727864342">ru.dasha.ood.draw.ui.window.IWindowContext</node>
+    <node x="959.6474350868539" y="686.4314942093392">ru.dasha.ood.draw.ui.window.states.WindowState</node>
+    <node x="320.8804521407326" y="1831.8361752257397">ru.dasha.ood.draw.ModelController</node>
+    <node x="3112.195194363233" y="802.5641838351822">ru.dasha.ood.draw.nodes.decorators.ShapeDecorator</node>
+    <node x="1842.870751047735" y="926.5199397580525">ru.dasha.ood.draw.ui.IconFactory</node>
+    <node x="1760.0124281284297" y="1048.8166545602421">ru.dasha.ood.draw.ui.widgets.ToolPane</node>
+    <node x="320.8804521407326" y="1320.1210728965912">ru.dasha.ood.draw.commands.DecompositeNodeCommand</node>
+    <node x="959.6474350868539" y="902.816654560242">ru.dasha.ood.draw.ui.window.states.SelectionWindowState</node>
+    <node x="3265.1973415132916" y="-111.0">ru.dasha.ood.draw.shapes.CanvasShape</node>
+    <node x="694.9989933714107" y="2142.41850876969">ru.dasha.ood.draw.Application</node>
+    <node x="1616.9144180329752" y="926.5199397580525">ru.dasha.ood.draw.ui.widgets.ButtonGroup</node>
+    <node x="-45.11954785926741" y="1320.1210728965912">ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand</node>
+    <node x="3627.8640081799585" y="108.0">ru.dasha.ood.draw.shapes.CircleShape</node>
+    <node x="-331.81787899003825" y="1155.5387393526407">ru.dasha.ood.draw.commands.IModelCommand</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.ui.widgets.ToolPane" relationship="CREATE">
+      <point x="21.098010095454583" y="-128.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.WindowState" target="ru.dasha.ood.draw.ui.window.IWindowContext" relationship="DEPENDENCY">
+      <point x="-4.350868539404473E-4" y="91.4995057906608" />
+      <point x="1149.647" y="887.0" />
+      <point x="942.147" y="887.0" />
+      <point x="942.147" y="1270.0" />
+      <point x="-162.00043508685383" y="5.926727213565755" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.IWindowContext" target="ru.dasha.ood.draw.ui.window.states.WindowState" relationship="DEPENDENCY">
+      <point x="-162.0" y="63.54780011015691" />
+      <point x="841.999" y="1327.6210728965912" />
+      <point x="841.999" y="777.9314942093392" />
+      <point x="-190.0" y="0.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand" target="ru.dasha.ood.draw.ModelController" relationship="DEPENDENCY">
+      <point x="-4.5214073259103316E-4" y="-44.500072896591064" />
+      <point x="127.88" y="1270.0" />
+      <point x="677.38" y="1270.0" />
+      <point x="146.4995478592674" y="-92.50017522573967" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.shapes.RectangleShape" relationship="DEPENDENCY">
+      <point x="-210.0" y="29.999824774260333" />
+      <point x="-490.921" y="1954.336" />
+      <point x="-490.921" y="141.05006422614994" />
+      <point x="-185.0" y="-131.44993577385006" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.shapes.CircleShape" relationship="DEPENDENCY">
+      <point x="-60.00045214073259" y="92.5" />
+      <point x="470.88" y="2463.768667353943" />
+      <point x="3797.8640081799585" y="2463.768667353943" />
+      <point x="15.0" y="164.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Application" target="ru.dasha.ood.draw.CommandlineReader" relationship="TO_ONE">
+      <point x="76.07978990009269" y="-43.5" />
+      <point x="-178.5" y="116.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.RectangleShapeDecorator" target="ru.dasha.ood.draw.nodes.decorators.ShapeDecorator" relationship="GENERALIZATION">
+      <point x="-8.179958513210295E-6" y="-56.5" />
+      <point x="2939.864" y="957.0" />
+      <point x="3224.195" y="957.0" />
+      <point x="-1.9436323282207013E-4" y="44.49981616481773" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.nodes.decorators.CircleShapeDecorator" relationship="CREATE">
+      <point x="-90.00045214073259" y="92.5" />
+      <point x="440.88" y="2493.768667353943" />
+      <point x="3579.3640081799585" y="2493.768667353943" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.IModelCommand" target="ru.dasha.ood.draw.ModelController" relationship="DEPENDENCY">
+      <point x="-1.2100996175945511E-4" y="31.500260647359255" />
+      <point x="-205.818" y="1270.0" />
+      <point x="677.38" y="1270.0" />
+      <point x="146.4995478592674" y="-92.50017522573967" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="REALIZATION">
+      <point x="14.999547859267409" y="-44.500072896591064" />
+      <point x="142.88" y="1296.0" />
+      <point x="-176.12" y="1296.0" />
+      <point x="29.697878990038248" y="31.500260647359255" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.ModelController" relationship="TO_ONE">
+      <point x="15.0" y="128.5" />
+      <point x="1816.4144180329752" y="2385.91850876969" />
+      <point x="515.88" y="2385.91850876969" />
+      <point x="-15.000452140732591" y="92.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.OpenWindowCommand" target="ru.dasha.ood.draw.ModelController" relationship="DEPENDENCY">
+      <point x="-4.5214073281840683E-4" y="-44.500072896591064" />
+      <point x="-191.12" y="1270.0" />
+      <point x="677.38" y="1270.0" />
+      <point x="146.4995478592674" y="-92.50017522573967" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.ui.window.states.WindowState" relationship="REALIZATION">
+      <point x="-15.00043508685394" y="-104.5" />
+      <point x="-15.00043508685394" y="91.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="TO_MANY">
+      <point x="162.0" y="15.0" />
+      <point x="2315.0" y="1349.3198027912727" />
+      <point x="2315.0" y="668.9314942093392" />
+      <point x="-112.0" y="-15.760348593905746" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.DecompositeNodeCommand" target="ru.dasha.ood.draw.nodes.CompositeNode" relationship="TO_ONE">
+      <point x="169.5" y="-37.0" />
+      <point x="788.3804521407326" y="1327.6210728965912" />
+      <point x="788.3804521407326" y="598.691842803245" />
+      <point x="2529.241" y="598.691842803245" />
+      <point x="-14.999580489096843" y="-80.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.commands.CommandDispatcher" relationship="TO_ONE">
+      <point x="-201.0" y="101.0" />
+      <point x="-535.921" y="2049.3361752257397" />
+      <point x="-36.80145214073286" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.commands.OpenWindowCommand" relationship="CREATE">
+      <point x="-141.43134818464955" y="-116.5" />
+      <point x="970.1474350868539" y="1798.5" />
+      <point x="-191.1195478592672" y="1798.5" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="DEPENDENCY">
+      <point x="-75.00045214073259" y="92.5" />
+      <point x="455.88" y="2478.768667353943" />
+      <point x="4105.364008179959" y="2478.768667353943" />
+      <point x="4105.364008179959" y="-109.5" />
+      <point x="112.0" y="-30.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="TO_ONE">
+      <point x="-15.000452140732591" y="-44.5" />
+      <point x="112.88" y="-79.5" />
+      <point x="-112.0" y="0.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.ui.window.IWindowContext" relationship="DEPENDENCY">
+      <point x="-4.350868539404473E-4" y="-104.49965456024199" />
+      <point x="1149.647" y="887.0" />
+      <point x="942.147" y="887.0" />
+      <point x="942.147" y="1270.0" />
+      <point x="-162.00043508685383" y="5.926727213565755" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Application" target="ru.dasha.ood.draw.CommandlineReader" relationship="CREATE">
+      <point x="61.07978990009269" y="-43.5" />
+      <point x="-193.5" y="116.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.ui.window.states.WindowState" relationship="TO_ONE">
+      <point x="162.0" y="0.0" />
+      <point x="2225.0" y="1334.3198027912727" />
+      <point x="2225.0" y="778.0" />
+      <point x="190.0" y="0.06850579066076534" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.ShapeDecorator" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="GENERALIZATION">
+      <point x="-1.9436323282207013E-4" y="-44.50018383518227" />
+      <point x="3224.195" y="778.0" />
+      <point x="2870.0" y="778.0" />
+      <point x="-52.80229433452769" y="68.50015719675503" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.CompositeNode" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="TO_MANY">
+      <point x="140.50041951090316" y="-1.8383518226983142E-4" />
+      <point x="2716.0" y="883.064" />
+      <point x="2716.0" y="684.692" />
+      <point x="-112.00029433452755" y="1.5719675502623431E-4" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.shapes.CircleShape" relationship="CREATE">
+      <point x="201.0" y="15.0" />
+      <point x="3782.8640081799585" y="1963.3361752257397" />
+      <point x="0.0" y="164.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.Application" relationship="DEPENDENCY">
+      <point x="0.0" y="128.5" />
+      <point x="1801.4144180329752" y="2200.919" />
+      <point x="162.0" y="15.000491230309763" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.shapes.PolygonShape" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="REALIZATION">
+      <point x="-8.179958513210295E-6" y="-140.5" />
+      <point x="3451.864" y="105.0" />
+      <point x="3243.5" y="105.0" />
+      <point x="3243.5" y="30.0" />
+      <point x="3377.197" y="30.0" />
+      <point x="-3.415132914597052E-4" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.CompositeNode" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="GENERALIZATION">
+      <point x="4.1951090315706097E-4" y="-80.50018383518227" />
+      <point x="2544.241" y="778.0" />
+      <point x="2870.0" y="778.0" />
+      <point x="-52.80229433452769" y="68.50015719675503" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.ShapeDecorator" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="REALIZATION">
+      <point x="112.0" y="0.0" />
+      <point x="3955.3640081799585" y="847.0641838351822" />
+      <point x="3955.3640081799585" y="-79.5" />
+      <point x="112.0" y="0.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.nodes.decorators.RectangleShapeDecorator" relationship="CREATE">
+      <point x="-30.00045214073259" y="92.5" />
+      <point x="500.88" y="2400.91850876969" />
+      <point x="2939.8640081799585" y="2400.91850876969" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.shapes.CircleShape" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="REALIZATION">
+      <point x="-8.179958513210295E-6" y="-164.5" />
+      <point x="3782.864" y="30.0" />
+      <point x="3377.197" y="30.0" />
+      <point x="-3.415132914597052E-4" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.shapes.PolygonShape" relationship="CREATE">
+      <point x="-201.0" y="86.0" />
+      <point x="-520.921" y="2034.3361752257397" />
+      <point x="-520.921" y="60.0" />
+      <point x="3506.6973415132916" y="60.0" />
+      <point x="54.83333333333303" y="-140.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.DecompositeNodeCommand" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="REALIZATION">
+      <point x="14.999547859267409" y="-44.500072896591064" />
+      <point x="505.38" y="1296.0" />
+      <point x="-176.12" y="1296.0" />
+      <point x="29.697878990038248" y="31.500260647359255" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.IWindowContext" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="DEPENDENCY">
+      <point x="161.99956491314606" y="14.999727213565848" />
+      <point x="1702.4987844327745" y="1279.073" />
+      <point x="1702.4987844327745" y="1006.0" />
+      <point x="2922.802" y="1006.0" />
+      <point x="-2.943345275525644E-4" y="68.50015719675503" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.ui.window.IWindowContext" relationship="REALIZATION">
+      <point x="-162.0" y="0.0" />
+      <point x="162.0" y="70.2465300048384" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.widgets.ToolPane" target="ru.dasha.ood.draw.ui.widgets.ButtonGroup" relationship="CREATE">
+      <point x="-21.098010095454583" y="-31.5" />
+      <point x="88.5" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateCompositeNodeCommand" target="ru.dasha.ood.draw.ModelController" relationship="DEPENDENCY">
+      <point x="-4.5214073281840683E-4" y="-44.500072896591064" />
+      <point x="-873.62" y="1270.0" />
+      <point x="677.38" y="1270.0" />
+      <point x="146.4995478592674" y="-92.50017522573967" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Main" target="ru.dasha.ood.draw.Application" relationship="DEPENDENCY">
+      <point x="6.628589289903175E-6" y="-44.49950876969024" />
+      <point x="6.628589289903175E-6" y="43.50049123030976" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.RectangleShapeDecorator" target="ru.dasha.ood.draw.shapes.RectangleShape" relationship="DEPENDENCY">
+      <point x="151.0" y="-56.5" />
+      <point x="0.0" y="140.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.widgets.ToolPane" target="ru.dasha.ood.draw.ui.IconFactory" relationship="DEPENDENCY">
+      <point x="27.858322919305238" y="-31.5" />
+      <point x="-99.5" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.commands.DecompositeNodeCommand" relationship="CREATE">
+      <point x="-179.5" y="104.50000000000011" />
+      <point x="970.1474350868539" y="1360.0732727864342" />
+      <point x="169.5" y="-4.547800110156913" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.CircleShapeDecorator" target="ru.dasha.ood.draw.shapes.CircleShape" relationship="DEPENDENCY">
+      <point x="56.0" y="-56.5" />
+      <point x="-147.5" y="164.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.CircleShapeDecorator" target="ru.dasha.ood.draw.nodes.decorators.ShapeDecorator" relationship="GENERALIZATION">
+      <point x="-8.179958513210295E-6" y="-56.5" />
+      <point x="3579.364" y="957.0" />
+      <point x="3224.195" y="957.0" />
+      <point x="-1.9436323282207013E-4" y="44.49981616481773" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateCompositeNodeCommand" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="TO_MANY">
+      <point x="-4.5214073281840683E-4" y="44.499927103408936" />
+      <point x="-873.62" y="1579.0" />
+      <point x="2716.0" y="1579.0" />
+      <point x="2716.0" y="684.692" />
+      <point x="-112.00029433452755" y="1.5719675502623431E-4" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.nodes.CompositeNode" relationship="DEPENDENCY">
+      <point x="14.99956491314606" y="-104.5" />
+      <point x="1164.647" y="887.0" />
+      <point x="-140.5" y="3.9358161648177656" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Application" target="ru.dasha.ood.draw.ModelController" relationship="TO_ONE">
+      <point x="6.628589289903175E-6" y="-43.49950876969024" />
+      <point x="856.999" y="2104.0" />
+      <point x="530.88" y="2104.0" />
+      <point x="-4.5214073259103316E-4" y="92.49982477426033" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.shapes.PolygonShape" relationship="DEPENDENCY">
+      <point x="-210.0" y="-30.000175225739667" />
+      <point x="-505.921" y="1894.336" />
+      <point x="-505.921" y="75.0" />
+      <point x="3481.864" y="75.0" />
+      <point x="29.999991820041487" y="-140.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="TO_MANY">
+      <point x="-4.5214073259103316E-4" y="-92.50017522573967" />
+      <point x="530.88" y="1579.0" />
+      <point x="2716.0" y="1579.0" />
+      <point x="2716.0" y="684.692" />
+      <point x="-112.00029433452755" y="1.5719675502623431E-4" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand" relationship="CREATE">
+      <point x="0.0" y="-116.5" />
+      <point x="1111.5787832715034" y="1441.6210728965912" />
+      <point x="127.88045214073259" y="1441.6210728965912" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.CommandlineReader" target="ru.dasha.ood.draw.shapes.RectangleShape" relationship="CREATE">
+      <point x="201.0" y="0.0" />
+      <point x="2745.294" y="1948.3361752257397" />
+      <point x="2745.294" y="272.5" />
+      <point x="-185.0" y="0.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.ui.window.WindowController" relationship="CREATE">
+      <point x="161.4995478592674" y="-92.5" />
+      <point x="692.38" y="1813.5" />
+      <point x="1786.4144180329752" y="1813.5" />
+      <point x="-15.0" y="128.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.PolygonShapeDecorator" target="ru.dasha.ood.draw.nodes.decorators.ShapeDecorator" relationship="GENERALIZATION">
+      <point x="-8.179958513210295E-6" y="-56.5" />
+      <point x="3272.864" y="957.0" />
+      <point x="3224.195" y="957.0" />
+      <point x="-1.9436323282207013E-4" y="44.49981616481773" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.shapes.RectangleShape" target="ru.dasha.ood.draw.shapes.CanvasShape" relationship="REALIZATION">
+      <point x="-8.179958513210295E-6" y="-140.5" />
+      <point x="3090.864" y="105.0" />
+      <point x="3243.5" y="105.0" />
+      <point x="3243.5" y="30.0" />
+      <point x="3377.197" y="30.0" />
+      <point x="-3.415132914597052E-4" y="31.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" relationship="CREATE">
+      <point x="-113.91563360020064" y="-128.5" />
+      <point x="1687.4987844327745" y="1056.3166545602421" />
+      <point x="190.0" y="49.000000000000114" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.nodes.GenericNode" relationship="DEPENDENCY">
+      <point x="189.99956491314606" y="-98.29665456024202" />
+      <point x="2210.0" y="909.02" />
+      <point x="2210.0" y="1006.0" />
+      <point x="2922.802" y="1006.0" />
+      <point x="-2.943345275525644E-4" y="68.50015719675503" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.nodes.decorators.PolygonShapeDecorator" relationship="CREATE">
+      <point x="-45.00045214073259" y="92.5" />
+      <point x="485.88" y="2415.91850876969" />
+      <point x="3272.8640081799585" y="2415.91850876969" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.nodes.decorators.PolygonShapeDecorator" target="ru.dasha.ood.draw.shapes.PolygonShape" relationship="DEPENDENCY">
+      <point x="143.0" y="-56.5" />
+      <point x="-36.0" y="140.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.DecompositeNodeCommand" target="ru.dasha.ood.draw.ModelController" relationship="DEPENDENCY">
+      <point x="-4.5214073259103316E-4" y="-44.500072896591064" />
+      <point x="490.38" y="1270.0" />
+      <point x="677.38" y="1270.0" />
+      <point x="146.4995478592674" y="-92.50017522573967" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Application" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="DEPENDENCY">
+      <point x="162.0000066285893" y="4.912303097626136E-4" />
+      <point x="1342.0" y="2185.919" />
+      <point x="1342.0" y="1138.039" />
+      <point x="-205.818" y="1138.039" />
+      <point x="-1.2100996175945511E-4" y="-31.499739352640745" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.Application" target="ru.dasha.ood.draw.ModelController" relationship="CREATE">
+      <point x="-123.61854123067815" y="-43.5" />
+      <point x="202.5" y="92.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.states.SelectionWindowState" target="ru.dasha.ood.draw.commands.CreateCompositeNodeCommand" relationship="CREATE">
+      <point x="-190.0" y="0.0" />
+      <point x="-888.62" y="1007.316654560242" />
+      <point x="-15.000452140732818" y="-44.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.OpenWindowCommand" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="REALIZATION">
+      <point x="-15.000452140732818" y="-44.500072896591064" />
+      <point x="-206.12" y="1296.0" />
+      <point x="-176.12" y="1296.0" />
+      <point x="29.697878990038248" y="31.500260647359255" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ModelController" target="ru.dasha.ood.draw.nodes.CompositeNode" relationship="CREATE">
+      <point x="14.999547859267409" y="92.5" />
+      <point x="545.88" y="2246.91850876969" />
+      <point x="2544.240580489097" y="2246.91850876969" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CommandDispatcher" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="DEPENDENCY">
+      <point x="23.198547859267194" y="31.499927103408936" />
+      <point x="-475.921" y="1693.5" />
+      <point x="1342.0" y="1693.5" />
+      <point x="1342.0" y="1138.039" />
+      <point x="-205.818" y="1138.039" />
+      <point x="-1.2100996175945511E-4" y="-31.499739352640745" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.commands.CreateCompositeNodeCommand" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="REALIZATION">
+      <point x="14.999547859267182" y="-44.500072896591064" />
+      <point x="-858.62" y="1296.0" />
+      <point x="-176.12" y="1296.0" />
+      <point x="29.697878990038248" y="31.500260647359255" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.WindowController" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="DEPENDENCY">
+      <point x="-162.0" y="50.753469995161595" />
+      <point x="818.3804521407326" y="1385.0732727864342" />
+      <point x="818.3804521407326" y="1187.0387393526407" />
+      <point x="126.0" y="0.0" />
+    </edge>
+    <edge source="ru.dasha.ood.draw.ui.window.IWindowContext" target="ru.dasha.ood.draw.commands.IModelCommand" relationship="DEPENDENCY">
+      <point x="161.99956491314606" y="-2.7278643415229453E-4" />
+      <point x="1342.0" y="1264.073" />
+      <point x="1342.0" y="1138.039" />
+      <point x="-205.818" y="1138.039" />
+      <point x="-1.2100996175945511E-4" y="-31.499739352640745" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.18736130847009155" showDependencies="true" x="1529.1347101628967" y="599.8033145998284" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

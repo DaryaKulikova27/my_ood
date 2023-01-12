@@ -3,6 +3,7 @@ package ru.dasha.ood.draw.nodes;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import ru.dasha.ood.draw.nodes.visitors.Visitor;
 import ru.dasha.ood.draw.utils.GeometryHelper;
 
 import java.util.Set;
@@ -40,5 +41,10 @@ public class CompositeNode extends GenericNode {
 
     public Set<GenericNode> getChildNodes() {
         return childNodes;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitCompositeNode(this);
     }
 }

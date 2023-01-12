@@ -11,9 +11,9 @@ public class ButtonGroup extends HBox {
         void selectionChanged(int index);
     }
 
-    private final List<Button> buttons;
+    private List<Button> buttons;
     private int selected = 0;
-    private final Callback callback;
+    private Callback callback;
 
     /**
      * Creates an HBox layout with spacing = 0.
