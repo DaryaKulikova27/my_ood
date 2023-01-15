@@ -13,10 +13,14 @@ import ru.dasha.ood.draw.shapes.RectangleShape;
 import ru.dasha.ood.draw.ui.window.WindowController;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 public class ModelController {
-    private Set<GenericNode> shapes = new LinkedHashSet<>();
+    private Stack<NodesMemento> nodesUndoMementos = new Stack<>();
+    private Stack<NodesMemento> nodesRedoMementos = new Stack<>();
+    private Set<GenericNode> nodes = new LinkedHashSet<>();
 
     public void openWindow() {
         WindowController wc = new WindowController(this);
@@ -24,6 +28,7 @@ public class ModelController {
     }
 
     public GenericNode createDecoratorNode(CanvasShape shape) {
+        takeMemento();
         GenericNode node;
         if (shape instanceof CircleShape)
             node = new CircleShapeDecorator((CircleShape) shape);
@@ -33,30 +38,61 @@ public class ModelController {
             node = new PolygonShapeDecorator((PolygonShape) shape);
         else
             throw new RuntimeException("Unexpected type of shape");
-        shapes.add(node);
+        nodes.add(node);
         return node;
     }
 
-    public Set<GenericNode> getShapes() {
-        return shapes;
+    public Set<GenericNode> getNodes() {
+        return nodes;
     }
 
     public CompositeNode createCompositeNode(Set<GenericNode> nodes) {
-        this.shapes.removeAll(nodes);
+        takeMemento();
+        this.nodes.removeAll(nodes);
         CompositeNode compositeNode = new CompositeNode(nodes);
-        shapes.add(compositeNode);
+        this.nodes.add(compositeNode);
         return compositeNode;
     }
 
     public Set<GenericNode> decompositeNode(CompositeNode node) {
-        shapes.addAll(node.getChildNodes());
-        shapes.remove(node);
+        takeMemento();
+        nodes.addAll(node.getChildNodes());
+        nodes.remove(node);
         return node.getChildNodes();
     }
 
-    public Object runVisitor(Visitor visitor, Set<GenericNode> nodes) {
+    public Object runVisitor(Visitor visitor, Set<GenericNode> nodes, boolean takeMemento) {
+        if (takeMemento)
+            takeMemento();
         for (GenericNode node : nodes)
             node.accept(visitor);
         return null;
+    }
+
+    private void takeMemento() {
+        nodesRedoMementos.clear();
+        nodesUndoMementos.push(getCurrentMemento());
+    }
+
+    private NodesMemento getCurrentMemento() {
+        return NodesMemento.createUsingClones(nodes);
+    }
+
+    public void undoMemento() {
+        if (nodesUndoMementos.empty())
+            return;
+        NodesMemento nodesMemento = nodesUndoMementos.pop();
+        nodesRedoMementos.push(getCurrentMemento());
+        nodes.clear();
+        nodes.addAll(List.of(nodesMemento.getNodes()));
+    }
+
+    public void redoMemento() {
+        if (nodesRedoMementos.empty())
+            return;
+        NodesMemento nodesMemento = nodesRedoMementos.pop();
+        nodesUndoMementos.push(getCurrentMemento());
+        nodes.clear();
+        nodes.addAll(List.of(nodesMemento.getNodes()));
     }
 }

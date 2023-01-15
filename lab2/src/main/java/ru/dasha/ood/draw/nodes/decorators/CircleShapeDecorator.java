@@ -35,4 +35,9 @@ public class CircleShapeDecorator extends ShapeDecorator<CircleShape> {
     public void moveBy(Point2D vector) {
         wrapped.setCenter(wrapped.getCenter().add(vector));
     }
+
+    @Override
+    public Object cloneIt() {
+        return new CircleShapeDecorator((CircleShape) wrapped.cloneIt());
+    }
 }

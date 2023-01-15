@@ -66,4 +66,9 @@ public class PolygonShape implements CanvasShape {
     public void setPoints(Point2D[] points) {
         this.points = points;
     }
+
+    @Override
+    public Object cloneIt() {
+        return new PolygonShape(fillColor, strokeColor, strokeThickness, points);
+    }
 }

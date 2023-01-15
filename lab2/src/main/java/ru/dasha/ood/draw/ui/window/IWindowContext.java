@@ -15,7 +15,7 @@ public interface IWindowContext {
     void addSelectedNode(GenericNode node);
     void removeSelectedNode(GenericNode node);
     void setCurrentState(WindowState newState);
-    void updateNodesMoveBy(Point2D diff);
+    void updateNodesMoveBy(Point2D diff, boolean takeMemento);
     Object dispatchCommand(IModelCommand command);
     void updateStateFromType(WindowStateType type);
     void updateNodesFillColor(Color background);

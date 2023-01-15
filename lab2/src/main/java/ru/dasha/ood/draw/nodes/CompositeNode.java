@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import ru.dasha.ood.draw.nodes.visitors.Visitor;
 import ru.dasha.ood.draw.utils.GeometryHelper;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class CompositeNode extends GenericNode {
@@ -46,5 +47,13 @@ public class CompositeNode extends GenericNode {
     @Override
     public void accept(Visitor visitor) {
         visitor.visitCompositeNode(this);
+    }
+
+    @Override
+    public Object cloneIt() {
+        LinkedHashSet<GenericNode> newNodes = new LinkedHashSet<>(childNodes.size());
+        for (GenericNode child : childNodes)
+            newNodes.add((GenericNode) child.cloneIt());
+        return new CompositeNode(newNodes);
     }
 }

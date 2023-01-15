@@ -84,7 +84,7 @@ public class SelectionWindowState implements WindowState {
     public void onMouseDrag(IWindowContext context, MouseEvent e) {
         Point2D currentPoint = new Point2D(e.getX(), e.getY());
         if (state == MouseState.TOUCH_DOWN_ON_SELECTION || state == MouseState.DRAGGING_SELECTION) {
-            context.updateNodesMoveBy(currentPoint.subtract(lastPoint));
+            context.updateNodesMoveBy(currentPoint.subtract(lastPoint), state == MouseState.TOUCH_DOWN_ON_SELECTION);
             state = MouseState.DRAGGING_SELECTION;
         } else {
             if (pinnedPoint == null)
@@ -96,6 +96,9 @@ public class SelectionWindowState implements WindowState {
     @Override
     public void onMouseUp(IWindowContext context, MouseEvent e) {
         Point2D currentPoint = new Point2D(e.getX(), e.getY());
+        if (state == MouseState.TOUCH_DOWN_ON_SELECTION || state == MouseState.DRAGGING_SELECTION)
+            context.updateNodesMoveBy(currentPoint.subtract(lastPoint), false);
+
         if (state == MouseState.TOUCH_DOWN_ON_SELECTION) {
             if (!e.isShiftDown()) {
                 context.clearSelectedNodes();

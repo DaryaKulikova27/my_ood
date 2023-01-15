@@ -69,4 +69,9 @@ public class CircleShape implements CanvasShape {
     public void setCenter(Point2D center) {
         this.center = center;
     }
+
+    @Override
+    public Object cloneIt() {
+        return new CircleShape(fillColor, strokeColor, strokeThickness, radius, center);
+    }
 }

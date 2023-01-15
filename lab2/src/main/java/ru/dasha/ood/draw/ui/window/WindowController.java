@@ -6,6 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -18,7 +19,9 @@ import jfxtras.styles.jmetro.Style;
 import ru.dasha.ood.draw.Application;
 import ru.dasha.ood.draw.ModelController;
 import ru.dasha.ood.draw.commands.IModelCommand;
+import ru.dasha.ood.draw.commands.RedoCommand;
 import ru.dasha.ood.draw.commands.RunVisitorNodeCommand;
+import ru.dasha.ood.draw.commands.UndoCommand;
 import ru.dasha.ood.draw.nodes.GenericNode;
 import ru.dasha.ood.draw.nodes.visitors.BorderColorVisitor;
 import ru.dasha.ood.draw.nodes.visitors.BorderWidthVisitor;
@@ -81,6 +84,10 @@ public class WindowController implements IWindowContext {
     }
 
     private void onKeyPressed(KeyEvent e) {
+        if (e.getCode() == KeyCode.Z && e.isShortcutDown() && e.isShiftDown())
+            dispatchCommand(new RedoCommand());
+        else if (e.getCode() == KeyCode.Z && e.isShortcutDown())
+            dispatchCommand(new UndoCommand());
         currentState.onKeyDown(this, e);
     }
 
@@ -132,7 +139,7 @@ public class WindowController implements IWindowContext {
 
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        for (GenericNode node : model.getShapes())
+        for (GenericNode node : model.getNodes())
             node.draw(gc);
 
         currentState.drawOverlay(this, gc);
@@ -140,7 +147,7 @@ public class WindowController implements IWindowContext {
 
     @Override
     public Set<GenericNode> getNodes() {
-        return model.getShapes();
+        return model.getNodes();
     }
 
     @Override
@@ -169,8 +176,7 @@ public class WindowController implements IWindowContext {
         currentState.activate(this);
     }
 
-    public void updateStateFromType(WindowStateType type)
-    {
+    public void updateStateFromType(WindowStateType type) {
         switch (type) {
             case SELECTION:
                 setCurrentState(new SelectionWindowState());
@@ -209,10 +215,10 @@ public class WindowController implements IWindowContext {
     }
 
     @Override
-    public void updateNodesMoveBy(Point2D diff) {
+    public void updateNodesMoveBy(Point2D diff, boolean takeMemento) {
         MoveVisitor visitor = new MoveVisitor(diff);
 
-        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
+        dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes, takeMemento));
     }
 
     @Override

@@ -18,6 +18,13 @@ public class RectangleShape implements CanvasShape {
         this.rect = new Rectangle2D(startPoint.getX(), startPoint.getY(), size.getX(), size.getY());
     }
 
+    public RectangleShape(Color fillColor, Color strokeColor, int strokeThickness, Rectangle2D rect) {
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
+        this.strokeThickness = strokeThickness;
+        this.rect = rect;
+    }
+
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(fillColor);
@@ -58,5 +65,10 @@ public class RectangleShape implements CanvasShape {
 
     public void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
+    }
+
+    @Override
+    public Object cloneIt() {
+        return new RectangleShape(fillColor, strokeColor, strokeThickness, rect);
     }
 }
