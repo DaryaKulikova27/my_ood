@@ -1,0 +1,139 @@
+.root {
+    /* Root variables */
+    accent_color: #3574f0;
+    text_color: #ced0d5;
+    background_color: #2b2d30;
+    separator_color: #1e1f22;
+    background_pressed_color: #4d5156;
+    background_hovered_color: #393b40;
+    scroll_pane_background_color: background_color;
+    dialog_background_color: background_color;
+}
+
+.label-normal {
+    -fx-font-size: 12pt;
+}
+
+/* To be used in "background" Panes */
+.background{
+    -fx-background-color: background_color;
+}
+
+.toolbar {
+    -fx-background-color: background_color;
+    -fx-background-radius: 0px;
+
+    -fx-border-color: separator_color;
+    -fx-border-width: 1;
+    -fx-border-style: none none solid none;
+
+    -fx-background-insets: 0;
+}
+
+.toolbar-button {
+    -fx-text-alignment: center;
+    -fx-background-color: background_color;
+    -fx-background-radius: 5pt;
+
+    -shrink-animate-on-press: true;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+
+    -fx-background-insets: 0;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.toolbar-button.active {
+    -fx-background-color: accent_color;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5pt;
+
+    -shrink-animate-on-press: true;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.toolbar-button.active:hover {
+    -fx-background-color: accent_color;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5pt;
+
+    -shrink-animate-on-press: true;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.toolbar-button.active:pressed
+{
+    -fx-background-color: accent_color;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5pt;
+
+    -shrink-animate-on-press: true;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.toolbar-button.active:focused
+{
+    -fx-background-color: accent_color;
+    -fx-border-width: 0px;
+    -fx-background-radius: 5pt;
+
+    -shrink-animate-on-press: true;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: text_color;
+}
+
+.toolbar-button:hover {
+    -fx-background-color: background_hovered_color;
+    -fx-border-width: 0px;
+}
+
+.toolbar-button:pressed
+{
+    -fx-border-color: background_pressed_color;
+    -fx-background-color: background_pressed_color;
+    -fx-border-width: 0px;
+}
+
+.toolbar-button:focused
+{
+    -fx-border-color: background_color;
+    -fx-background-color: background_color;
+    -fx-border-width: 0px;
+}
+
+.toolbar-button:disabled, .toolbar-button:default:disabled
+{
+    -fx-opacity: 0.4;
+    -fx-border-color: transparent, focus_ring_border_color;
+    -fx-border-width: 1, 1;
+    /*noinspection CssInvalidFunction*/
+    -fx-border-style: solid, segments(1, 2);
+    -fx-border-radius: 5pt;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.app-ico {
+    -fx-fill: text_color;
+}
