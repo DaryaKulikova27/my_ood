@@ -25,11 +25,6 @@ public class SelectionWindowState implements WindowState {
     private Point2D lastPoint;
 
     @Override
-    public void activate(IWindowContext context) {
-
-    }
-
-    @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {
         if (event.getCode() == KeyCode.G && event.isControlDown() && context.getSelectedNodes().size() > 1) {
             HashSet<GenericNode> nodesList = new HashSet<>();

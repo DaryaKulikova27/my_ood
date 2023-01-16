@@ -12,24 +12,24 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
 import ru.dasha.ood.draw.Application;
 import ru.dasha.ood.draw.ModelController;
-import ru.dasha.ood.draw.commands.IModelCommand;
-import ru.dasha.ood.draw.commands.RedoCommand;
-import ru.dasha.ood.draw.commands.RunVisitorNodeCommand;
-import ru.dasha.ood.draw.commands.UndoCommand;
+import ru.dasha.ood.draw.commands.*;
 import ru.dasha.ood.draw.nodes.GenericNode;
 import ru.dasha.ood.draw.nodes.visitors.BorderColorVisitor;
 import ru.dasha.ood.draw.nodes.visitors.BorderWidthVisitor;
 import ru.dasha.ood.draw.nodes.visitors.FillColorVisitor;
 import ru.dasha.ood.draw.nodes.visitors.MoveVisitor;
+import ru.dasha.ood.draw.serialization.FileType;
 import ru.dasha.ood.draw.ui.widgets.ToolPane;
 import ru.dasha.ood.draw.ui.window.states.*;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -173,7 +173,6 @@ public class WindowController implements IWindowContext {
     @Override
     public void setCurrentState(WindowState newState) {
         currentState = newState;
-        currentState.activate(this);
     }
 
     public void updateStateFromType(WindowStateType type) {
@@ -212,6 +211,30 @@ public class WindowController implements IWindowContext {
         BorderWidthVisitor visitor = new BorderWidthVisitor(width);
 
         dispatchCommand(new RunVisitorNodeCommand(visitor, selectedNodes));
+    }
+
+    @Override
+    public void openFile(FileType type) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import file...");
+        fileChooser.setSelectedExtensionFilter(getExtensionFilter(type));
+        File selected = fileChooser.showOpenDialog(stage);
+        dispatchCommand(new OpenFileCommand(selected, type));
+    }
+
+    @Override
+    public void saveFile(FileType type) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Export file...");
+        fileChooser.setSelectedExtensionFilter(getExtensionFilter(type));
+        File selected = fileChooser.showSaveDialog(stage);
+        dispatchCommand(new SaveFileCommand(selected, type));
+    }
+
+    private static FileChooser.ExtensionFilter getExtensionFilter(FileType type) {
+        return type == FileType.TEXT ?
+                new FileChooser.ExtensionFilter("Text format", "txt") :
+                new FileChooser.ExtensionFilter("Binary format", "bin");
     }
 
     @Override

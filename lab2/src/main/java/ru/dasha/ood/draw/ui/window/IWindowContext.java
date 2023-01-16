@@ -4,8 +4,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import ru.dasha.ood.draw.commands.IModelCommand;
 import ru.dasha.ood.draw.nodes.GenericNode;
+import ru.dasha.ood.draw.serialization.FileType;
 import ru.dasha.ood.draw.ui.window.states.WindowState;
 
+import java.io.File;
 import java.util.Set;
 
 public interface IWindowContext {
@@ -21,4 +23,6 @@ public interface IWindowContext {
     void updateNodesFillColor(Color background);
     void updateNodesBorderColor(Color background);
     void updateNodesBorderWidth(int background);
+    void openFile(FileType type);
+    void saveFile(FileType type);
 }

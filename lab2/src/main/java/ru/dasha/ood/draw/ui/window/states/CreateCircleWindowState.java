@@ -1,35 +1,20 @@
 package ru.dasha.ood.draw.ui.window.states;
 
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import ru.dasha.ood.draw.commands.CreateCompositeNodeCommand;
 import ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand;
-import ru.dasha.ood.draw.commands.DecompositeNodeCommand;
-import ru.dasha.ood.draw.nodes.CompositeNode;
-import ru.dasha.ood.draw.nodes.GenericNode;
 import ru.dasha.ood.draw.shapes.CanvasShape;
 import ru.dasha.ood.draw.shapes.CircleShape;
 import ru.dasha.ood.draw.ui.window.IWindowContext;
-import ru.dasha.ood.draw.utils.GeometryHelper;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CreateCircleWindowState implements WindowState {
     private static final Color fillColor = Color.color(Color.BLUEVIOLET.getRed(), Color.BLUEVIOLET.getGreen(), Color.BLUEVIOLET.getBlue(), 0.3);
     private static final Color strokeColor = Color.BLUEVIOLET;
     private static final int strokeThickness = 2;
     private Point2D pinnedPoint, lastPoint;
-
-    @Override
-    public void activate(IWindowContext context) {
-
-    }
 
     @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {

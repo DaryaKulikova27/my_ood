@@ -28,11 +28,6 @@ public class CreateTriangleWindowState implements WindowState {
     }
 
     @Override
-    public void activate(IWindowContext context) {
-
-    }
-
-    @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {
 
     }

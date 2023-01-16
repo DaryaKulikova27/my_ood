@@ -10,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class CompositeNode extends GenericNode {
+    public static final String SERIAL_NAME = "group";
     Set<GenericNode> childNodes;
 
     public CompositeNode(Set<GenericNode> childNodes) {

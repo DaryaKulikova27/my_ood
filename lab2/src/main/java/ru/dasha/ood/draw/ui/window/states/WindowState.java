@@ -6,7 +6,6 @@ import javafx.scene.input.MouseEvent;
 import ru.dasha.ood.draw.ui.window.IWindowContext;
 
 public interface WindowState {
-    void activate(IWindowContext context);
     void onKeyDown(IWindowContext context, KeyEvent event);
     void onMouseDown(IWindowContext context, MouseEvent event);
     void onMouseDrag(IWindowContext context, MouseEvent event);

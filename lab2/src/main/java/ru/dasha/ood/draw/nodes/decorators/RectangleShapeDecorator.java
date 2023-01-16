@@ -3,18 +3,34 @@ package ru.dasha.ood.draw.nodes.decorators;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
-import ru.dasha.ood.draw.nodes.visitors.Visitor;
-import ru.dasha.ood.draw.shapes.PolygonShape;
 import ru.dasha.ood.draw.shapes.RectangleShape;
 
 public class RectangleShapeDecorator extends ShapeDecorator<RectangleShape> {
+    public static final String SERIAL_NAME = "rectangle";
+
     public RectangleShapeDecorator(RectangleShape wrapped) {
         super(wrapped);
+    }
+
+    public Color getStrokeColor() {
+        return wrapped.getStrokeColor();
+    }
+
+    public Color getFillColor() {
+        return wrapped.getFillColor();
     }
 
     @Override
     public void setFillColor(Color color) {
         wrapped.setFillColor(color);
+    }
+
+    public int getStrokeThickness() {
+        return wrapped.getStrokeThickness();
+    }
+
+    public Rectangle2D getRect() {
+        return wrapped.getRect();
     }
 
     @Override

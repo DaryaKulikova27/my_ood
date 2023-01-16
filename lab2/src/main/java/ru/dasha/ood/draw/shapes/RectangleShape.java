@@ -71,4 +71,42 @@ public class RectangleShape implements CanvasShape {
     public Object cloneIt() {
         return new RectangleShape(fillColor, strokeColor, strokeThickness, rect);
     }
+    
+    public static final class Builder {
+        private Color fillColor;
+        private Color strokeColor;
+        private int strokeThickness;
+        private Rectangle2D rect;
+
+        public Builder() {
+        }
+
+        public static Builder aRectangleShape() {
+            return new Builder();
+        }
+
+        public Builder withFillColor(Color fillColor) {
+            this.fillColor = fillColor;
+            return this;
+        }
+
+        public Builder withStrokeColor(Color strokeColor) {
+            this.strokeColor = strokeColor;
+            return this;
+        }
+
+        public Builder withStrokeThickness(int strokeThickness) {
+            this.strokeThickness = strokeThickness;
+            return this;
+        }
+
+        public Builder withRect(Rectangle2D rect) {
+            this.rect = rect;
+            return this;
+        }
+
+        public RectangleShape build() {
+            return new RectangleShape(fillColor, strokeColor, strokeThickness, rect);
+        }
+    }
 }

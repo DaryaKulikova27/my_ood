@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import ru.dasha.ood.draw.commands.CreateDecoratorNodeCommand;
 import ru.dasha.ood.draw.shapes.CanvasShape;
-import ru.dasha.ood.draw.shapes.CircleShape;
 import ru.dasha.ood.draw.shapes.RectangleShape;
 import ru.dasha.ood.draw.ui.window.IWindowContext;
 import ru.dasha.ood.draw.utils.GeometryHelper;
@@ -18,11 +17,6 @@ public class CreateRectWindowState implements WindowState {
     private static final Color strokeColor = Color.BLUEVIOLET;
     private static final int strokeThickness = 2;
     private Point2D pinnedPoint, lastPoint;
-
-    @Override
-    public void activate(IWindowContext context) {
-
-    }
 
     @Override
     public void onKeyDown(IWindowContext context, KeyEvent event) {

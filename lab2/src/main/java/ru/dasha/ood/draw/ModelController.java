@@ -6,16 +6,22 @@ import ru.dasha.ood.draw.nodes.decorators.CircleShapeDecorator;
 import ru.dasha.ood.draw.nodes.decorators.PolygonShapeDecorator;
 import ru.dasha.ood.draw.nodes.decorators.RectangleShapeDecorator;
 import ru.dasha.ood.draw.nodes.visitors.Visitor;
+import ru.dasha.ood.draw.serialization.FileType;
+import ru.dasha.ood.draw.serialization.open.BinaryFileDeserializationStrategy;
+import ru.dasha.ood.draw.serialization.open.IFileDeserializationStrategy;
+import ru.dasha.ood.draw.serialization.open.TextFileDeserializationStrategy;
+import ru.dasha.ood.draw.serialization.save.BinaryFileSerializationStrategy;
+import ru.dasha.ood.draw.serialization.save.IFileSerializationStrategy;
+import ru.dasha.ood.draw.serialization.save.TextFileSerializationStrategy;
 import ru.dasha.ood.draw.shapes.CanvasShape;
 import ru.dasha.ood.draw.shapes.CircleShape;
 import ru.dasha.ood.draw.shapes.PolygonShape;
 import ru.dasha.ood.draw.shapes.RectangleShape;
 import ru.dasha.ood.draw.ui.window.WindowController;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class ModelController {
     private Stack<NodesMemento> nodesUndoMementos = new Stack<>();
@@ -94,5 +100,61 @@ public class ModelController {
         nodesUndoMementos.push(getCurrentMemento());
         nodes.clear();
         nodes.addAll(List.of(nodesMemento.getNodes()));
+    }
+
+    public Object saveFile(File file, FileType fileType) {
+        try {
+            saveMemento(getSerializationStrategy(fileType), file, getCurrentMemento());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public IFileDeserializationStrategy getDeserializationStrategy(FileType type) {
+        switch (type) {
+            case TEXT:
+                return new TextFileDeserializationStrategy();
+            case BINARY:
+                return new BinaryFileDeserializationStrategy();
+        }
+        return null;
+    }
+
+    public IFileSerializationStrategy getSerializationStrategy(FileType type) {
+        switch (type) {
+            case TEXT:
+                return new TextFileSerializationStrategy();
+            case BINARY:
+                return new BinaryFileSerializationStrategy();
+        }
+        return null;
+    }
+
+    public NodesMemento loadMemento(IFileDeserializationStrategy strategy, File file) throws IOException {
+        Collection<GenericNode> genericNodes = strategy.deserialize(file);
+        return NodesMemento.createWithoutCloning(genericNodes);
+    }
+
+    public void saveMemento(IFileSerializationStrategy strategy, File file, NodesMemento memento) throws IOException {
+        strategy.serialize(List.of(memento.getNodes()), file);
+    }
+
+    public Object openFile(File file, FileType fileType) {
+        try {
+            NodesMemento memento = loadMemento(getDeserializationStrategy(fileType), file);
+            restoreState(memento);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void restoreState(NodesMemento memento) {
+        nodesUndoMementos.empty();
+        nodesRedoMementos.empty();
+
+        nodes.clear();
+        nodes.addAll(List.of(memento.getNodes()));
     }
 }

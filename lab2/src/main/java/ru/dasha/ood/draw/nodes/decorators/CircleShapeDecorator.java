@@ -6,8 +6,28 @@ import javafx.scene.paint.Color;
 import ru.dasha.ood.draw.shapes.CircleShape;
 
 public class CircleShapeDecorator extends ShapeDecorator<CircleShape> {
+    public static final String SERIAL_NAME = "circle";
+
     public CircleShapeDecorator(CircleShape wrapped) {
         super(wrapped);
+    }
+
+    public Color getFillColor() {
+        return wrapped.getFillColor();
+    }
+
+    public Color getStrokeColor() {
+        return wrapped.getStrokeColor();
+    }
+
+    public int getStrokeThickness() {
+        return wrapped.getStrokeThickness();
+    }
+    public int getRadius() {
+        return wrapped.getRadius();
+    }
+    public Point2D getCenter() {
+        return wrapped.getCenter();
     }
 
     @Override
