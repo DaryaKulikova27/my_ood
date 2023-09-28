@@ -94,8 +94,8 @@ public class ToolPane extends HBox {
         HBox rightBlock = new HBox();
         rightBlock.setAlignment(Pos.CENTER);
 
-        createChoiceBox(rightBlock, "   Fill color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White"}, this::selectNewFillColor);
-        createChoiceBox(rightBlock, "   Border color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White"}, this::selectNewBorderColor);
+        createChoiceBox(rightBlock, "   Fill color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White", "Pink"}, this::selectNewFillColor);
+        createChoiceBox(rightBlock, "   Border color:  ", new String[]{"Red", "Green", "Cyan", "Black", "White", "Pink"}, this::selectNewBorderColor);
         createChoiceBox(rightBlock, "   Border width:  ", new String[]{"1", "2", "3", "4", "5"}, this::selectNewBorderWidth);
 
         getChildren().addAll(tools, makeSpacer(), centerBlock, makeSpacer(), rightBlock);

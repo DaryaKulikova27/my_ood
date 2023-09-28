@@ -81,41 +81,34 @@ public class CircleShape implements CanvasShape {
         private int strokeThickness;
         private int radius;
         private Point2D center;
-
         public Builder() {
         }
-
-        public static Builder aCircleShape() {
-            return new Builder();
-        }
-
         public Builder withFillColor(Color fillColor) {
             this.fillColor = fillColor;
             return this;
         }
-
         public Builder withStrokeColor(Color strokeColor) {
             this.strokeColor = strokeColor;
             return this;
         }
-
         public Builder withStrokeThickness(int strokeThickness) {
             this.strokeThickness = strokeThickness;
             return this;
         }
-
         public Builder withRadius(int radius) {
             this.radius = radius;
             return this;
         }
-
         public Builder withCenter(Point2D center) {
             this.center = center;
             return this;
         }
-
         public CircleShape build() {
             return new CircleShape(fillColor, strokeColor, strokeThickness, radius, center);
         }
     }
 }
+
+//public static Builder aCircleShape() {
+//            return new Builder();
+//        }

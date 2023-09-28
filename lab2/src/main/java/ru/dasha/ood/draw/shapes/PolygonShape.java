@@ -81,7 +81,6 @@ public class PolygonShape implements CanvasShape {
 
         public Builder() {
         }
-
         public static Builder aPolygonShape() {
             return new Builder();
         }
@@ -90,22 +89,18 @@ public class PolygonShape implements CanvasShape {
             this.fillColor = fillColor;
             return this;
         }
-
         public Builder withStrokeColor(Color strokeColor) {
             this.strokeColor = strokeColor;
             return this;
         }
-
         public Builder withStrokeThickness(int strokeThickness) {
             this.strokeThickness = strokeThickness;
             return this;
         }
-
         public Builder withPoints(Point2D[] points) {
             this.points = points;
             return this;
         }
-
         public PolygonShape build() {
             return new PolygonShape(fillColor, strokeColor, strokeThickness, points);
         }

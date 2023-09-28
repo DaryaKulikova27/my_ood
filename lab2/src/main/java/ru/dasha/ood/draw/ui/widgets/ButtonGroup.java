@@ -15,9 +15,6 @@ public class ButtonGroup extends HBox {
     private int selected = 0;
     private Callback callback;
 
-    /**
-     * Creates an HBox layout with spacing = 0.
-     */
     public ButtonGroup(Callback callback, Button... buttons) {
         this.callback = callback;
         this.buttons = List.of(buttons);

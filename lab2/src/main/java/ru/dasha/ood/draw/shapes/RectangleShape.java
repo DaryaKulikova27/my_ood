@@ -81,10 +81,6 @@ public class RectangleShape implements CanvasShape {
         public Builder() {
         }
 
-        public static Builder aRectangleShape() {
-            return new Builder();
-        }
-
         public Builder withFillColor(Color fillColor) {
             this.fillColor = fillColor;
             return this;
@@ -110,3 +106,8 @@ public class RectangleShape implements CanvasShape {
         }
     }
 }
+
+
+// public static Builder RectangleShape() {
+//            return new Builder();
+//        }
